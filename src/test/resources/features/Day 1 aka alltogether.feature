@@ -258,7 +258,7 @@ Feature: Responsive UI Validation
     #Then element with xpath "//label[@id='agreedToPrivacyPolicy-error']" should not be displayed
     #When I click on element with xpath "//button[@id='formSubmit']"
     #Then element with xpath "//b[@name='agreedToPrivacyPolicy']" should contain text "true"
-    #Then element with xpath "//b[@name='name']" should contain text "Name Secondname"
+    #Then element with xpath "//b[@name='name']" should contain text "Name SecondName"
 
   @UI10
   Scenario: Input field Validation - Name (iframe)
