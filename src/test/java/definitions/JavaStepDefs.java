@@ -11,7 +11,7 @@ import java.util.*;
 //import org.w3c.dom.ls.LSOutput;
 
 
-///////////// - Day 4 aka Methods Exercises - /////////////
+///////////// - Day 4 - /////////////
 //_______________________________________________________//
 public class JavaStepDefs {
     @Given("I say hello world")
