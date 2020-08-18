@@ -2,9 +2,22 @@ package definitions;
 
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Given;
+import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
-
+import org.openqa.selenium.By;
+import org.openqa.selenium.Dimension;
+import org.openqa.selenium.Keys;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.logging.LogEntries;
+import org.openqa.selenium.logging.LogEntry;
+import org.openqa.selenium.support.ui.Select;
 import java.util.*;
+import java.util.concurrent.TimeUnit;
+
+import static org.assertj.core.api.Assertions.assertThat;
+import static support.TestContext.getDriver;
+
 
 //import org.apache.logging.log4j.core.util.JsonUtils;
 //import org.apache.logging.log4j.core.util.Source;
@@ -89,7 +102,7 @@ public class JavaStepDefs {
 //_______________________________________________________//
 
 
-///////////// - Day 5 aka Numbers Exercises - /////////////
+///////////// - Day 5 - /////////////
 //_______________________________________________________//
 
     //number exercise p.12//
@@ -189,7 +202,163 @@ public class JavaStepDefs {
         //myNums.add(5);
     }
 
-    ///////////////////////////////////////////////////////////////// DAY 6 ARRAYS - MAPS
+
+//_______________________________________________________//
+
+
+///////////// - Day 6 - /////////////
+//_______________________________________________________//
+
+    @Given("I run to {string} page")
+    public void iRunToPage(String page) {
+        getDriver().manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
+        switch (page.toLowerCase()) {
+            case "quote":
+                getDriver().get("https://skryabin.com/market/quote.html");
+                break;
+            case "google":
+                getDriver().get("https://www.google.com");
+                break;
+            case "usps":
+                getDriver().get("https://www.usps.com");
+                break;
+            case "calculate price":
+                getDriver().get("https://postcalc.usps.com/");
+                break;
+            case "yahoo":
+                getDriver().get("https://yahoo.com/");
+                break;
+            default:
+                System.out.println("Not recognized page " + page);
+                //throw new RuntimeException("Not recognized page " + page);
+        }
+    }
+
+    @And("I print page details")
+    public void iPrintPageDetails() {
+        System.out.println(getDriver().getTitle());
+        System.out.println(getDriver().getCurrentUrl());
+        System.out.println(getDriver().getPageSource());
+        System.out.println(getDriver().getWindowHandle());
+        System.out.println(getDriver().getWindowHandles());
+    }
+
+    @And("I go back and forward, then refresh")
+    public void iGoBackAndForwardThenRefresh() {
+        getDriver().navigate().back();
+        getDriver().navigate().forward();
+        getDriver().navigate().refresh();
+    }
+
+    @And("I change resolution to {string}")
+    public void iChangeResolutionTo(String resolution) {
+        switch (resolution.toLowerCase()) {
+            case "phone":
+                getDriver().manage().window().setSize(new Dimension(400, 768));
+                break;
+            case "desktop":
+                getDriver().manage().window().setSize(new Dimension(1024, 768));
+                break;
+            case "max":
+                getDriver().manage().window().maximize();
+                break;
+            default:
+                getDriver().manage().window().fullscreen();
+        }
+    }
+
+    @And("I fill required fields")
+    public void iFillRequiredFields() {
+        getDriver().findElement(By.xpath("//input[@id='name']")).click();
+        getDriver().manage().timeouts().setScriptTimeout(2, TimeUnit.SECONDS);
+        getDriver().findElement(By.xpath("//input[@id='firstName']")).sendKeys("FirstName");
+        getDriver().findElement(By.xpath("//input[@id='middleName']")).sendKeys("MiddleName");
+        getDriver().findElement(By.xpath("//input[@id='lastName']")).sendKeys("LastName");
+        getDriver().findElement(By.xpath("//span[contains(text(),'Save')]")).click();
+        getDriver().findElement(By.xpath("//input[@name='username']")).sendKeys("username");
+        getDriver().findElement(By.xpath("//input[@name='email']")).sendKeys("test@bj.com");
+        getDriver().findElement(By.xpath("//input[@id='password']")).sendKeys("password");
+        getDriver().findElement(By.xpath("//input[@id='confirmPassword']")).sendKeys("password");
+        getDriver().manage().timeouts().setScriptTimeout(2, TimeUnit.SECONDS);
+        getDriver().findElement(By.xpath("//input[@name='agreedToPrivacyPolicy']")).click();
+        //getDriver().findElement(By.xpath("//button[@id='formSubmit']")).click();
+    }
+
+    @And("I fill optional fields")
+    public void iFillOptionalFields() {
+        getDriver().findElement(By.xpath("//input[@name='phone']")).sendKeys("12345678");
+        getDriver().findElement(By.xpath("//input[@id='dateOfBirth']")).click();
+        getDriver().findElement(By.xpath("//select[@class='ui-datepicker-month']")).click();
+        getDriver().findElement(By.xpath("//option[contains(text(),'May')]")).click();
+        getDriver().findElement(By.xpath("//select[@class='ui-datepicker-year']")).click();
+        getDriver().findElement(By.xpath("//option[contains(text(),'2000')]")).click();
+        getDriver().findElement(By.xpath("//a[contains(text(),'22')]")).click();
+        getDriver().findElement(By.xpath("//select[@name='countryOfOrigin']")).click();
+        getDriver().findElement(By.xpath("//option[contains(text(),'Canada')]")).click();
+        getDriver().findElement(By.xpath("//span[contains(text(),'Male')]")).click();
+        getDriver().findElement(By.xpath("//input[@name='allowedToContact']")).click();
+        getDriver().findElement(By.xpath("//textarea[@id='address']")).sendKeys("378 Rue Greenshields, OTTAWA");
+        getDriver().findElement(By.xpath("//option[contains(text(),'Toyota')]")).click();
+        getDriver().switchTo().frame("additionalInfo");
+        getDriver().findElement(By.xpath("//input[@id='contactPersonName']")).sendKeys("Name 1");
+        getDriver().findElement(By.xpath("//input[@id='contactPersonPhone']")).sendKeys("Name 2");
+        getDriver().switchTo().defaultContent();
+        getDriver().findElement(By.xpath("//button[@id='thirdPartyButton']")).click();
+        getDriver().switchTo().alert().accept();
+        //getDriver().findElement(By.xpath("//button[contains(text(),'Related documents (click)')]")).click();
+        //getDriver().switchTo().window(getDriver().getWindowHandles().iterator().next()); // switch back
+        //getDriver().findElement(By.xpath("//a[@id='link']")).click();
+        //getDriver().navigate().back();
+    }
+
+    @And("I submit the page")
+    public void iSubmitThePage() {
+        getDriver().findElement(By.xpath("//button[@id='formSubmit']")).click();
+    }
+
+    @Then("I verify e-mail field behavior")
+    public void iVerifyEMailFieldBehavior() {
+        getDriver().findElement(By.xpath("//input[@name='email']")).clear();
+        getDriver().findElement(By.xpath("//input[@name='email']")).sendKeys("setofrandomsymbols");
+        getDriver().findElement(By.xpath("//input[@name='email']")).sendKeys(Keys.ENTER);
+        assertThat(getDriver().findElement(By.xpath("//label[@id='email-error']")).isDisplayed()).isTrue();
+        assertThat(getDriver().findElement(By.xpath("//label[@id='email-error']")).getText()).isEqualTo("Please enter a valid email address.");
+        getDriver().findElement(By.xpath("//input[@name='email']")).sendKeys(Keys.BACK_SPACE);
+        assertThat(getDriver().findElement(By.xpath("//label[@id='email-error']")).isDisplayed()).isTrue();
+        assertThat(getDriver().findElement(By.xpath("//label[@id='email-error']")).getText()).contains("valid email address");
+        assertThat(getDriver().findElement(By.xpath("//label[@id='email-error']")).getCssValue("#8b0000"));
+        getDriver().findElement(By.xpath("//input[@name='email']")).clear();
+        getDriver().findElement(By.xpath("//input[@name='email']")).sendKeys("name@name.name");
+        getDriver().findElement(By.xpath("//input[@name='email']")).sendKeys(Keys.ENTER);
+        assertThat(getDriver().findElement(By.xpath("//label[@id='email-error']")).isDisplayed()).isFalse();
+    }
+
+    @And("I verify submitted fields saved correctly")
+    public void iVerifySubmittedFieldsSavedCorrectly() {
+        getDriver().manage().timeouts().setScriptTimeout(2, TimeUnit.SECONDS);
+        assertThat(getDriver().findElement(By.xpath("//legend[@class='applicationResult']")).isDisplayed()).isTrue();
+        assertThat(getDriver().findElement(By.xpath("//legend[@class='applicationResult']")).getText()).isEqualTo("Submitted Application");
+        assertThat(getDriver().findElement(By.xpath("//b[@name='firstName']")).getText()).isEqualTo("FirstName");
+        assertThat(getDriver().findElement(By.xpath("//b[@name='middleName']")).getText()).isEqualTo("MiddleName");
+        assertThat(getDriver().findElement(By.xpath("//b[@name='lastName']")).getText()).isEqualTo("LastName");
+        assertThat(getDriver().findElement(By.xpath("//b[@name='name']")).getText()).isEqualTo("FirstName MiddleName LastName");
+        assertThat(getDriver().findElement(By.xpath("//b[@name='username']")).getText()).isEqualTo("username");
+        assertThat(getDriver().findElement(By.xpath("//b[@name='password']")).getText()).isEqualTo("[entered]");
+        assertThat(getDriver().findElement(By.xpath("//b[@name='email']")).getText()).isEqualTo("test@bj.com");
+    }
+
+
+
+
+
+
+
+
+
+
+
+    //OLD section
+    ///////////////////////////////////////////////////////////////// DAY 6 OLD ARRAYS - MAPS
     @Given("I work with maps")
     public void iWorkWithMaps() {
         Map<String, String> user = Map.of(
@@ -212,7 +381,7 @@ public class JavaStepDefs {
         System.out.println(admin.get("email"));
     }
 
-    ///////////////////////////////////////////////////////////////// DAY 6 ARRAYS - CODING CHALLENGES ////////////////
+    ///////////////////////////////////////////////////////////////// DAY 6 OLD ARRAYS - CODING CHALLENGES ////////////////
     @Given("I solve coding challenges")
     public void iSolveCodingChallenges() {
         swap(2, 5);
@@ -324,7 +493,11 @@ public class JavaStepDefs {
     }
 
 
+
 }
+
+
+
 
 
 
