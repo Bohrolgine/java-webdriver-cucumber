@@ -1,3 +1,4 @@
+#HOMEWORK TEMP FEATURE
 @java
 Feature: Java steps
 
@@ -21,7 +22,7 @@ Feature: Java steps
 
 
   @java5
-  Scenario: Homework Day 6
+  Scenario: Homework Temp
   #Given I work with arrays hw
   #And I use a list
   #And I work with maps hw

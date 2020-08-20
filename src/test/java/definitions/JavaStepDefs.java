@@ -4,11 +4,13 @@ import cucumber.api.java.en.And;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
+import gherkin.ast.ScenarioOutline;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Dimension;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.interactions.SourceType;
 import org.openqa.selenium.logging.LogEntries;
 import org.openqa.selenium.logging.LogEntry;
 import org.openqa.selenium.support.ui.Select;
@@ -206,7 +208,7 @@ public class JavaStepDefs {
 //_______________________________________________________//
 
 
-///////////// - Day 6 - /////////////
+///////////// - Day 6 - ///////////// GetDriver
 //_______________________________________________________//
 
     @Given("I run to {string} page")
@@ -347,18 +349,33 @@ public class JavaStepDefs {
         assertThat(getDriver().findElement(By.xpath("//b[@name='email']")).getText()).isEqualTo("test@bj.com");
     }
 
+    //Maps
 
+    @And("I work with maps hw")
+    public void iWorkWithMapsHw() {
+        Map<String, String> info = new java.util.HashMap<>(Map.of(
+                "firstname", "John",
+                "middleName", "George"));
+        {
 
+            System.out.println("Values before swap: " + (info));
 
+            String temp = (info.get("firstname"));
+            info.put("firstname", (info.get("middleName")));
+            //String temp2 = (info.get("middleName"));
+            info.put("middleName", temp);
+            //info.put ("username", temp2);
 
+            System.out.println("Values after swap: " + (info));
+        }
 
+        //System.out.println(user.get("email")); info.get("key")
+        //System.out.println(admin.get("username"));
+        //System.out.println(admin.get("password"));
+        //System.out.println(admin.get("email"));
 
+    }
 
-
-
-
-    //OLD section
-    ///////////////////////////////////////////////////////////////// DAY 6 OLD ARRAYS - MAPS
     @Given("I work with maps")
     public void iWorkWithMaps() {
         Map<String, String> user = Map.of(
@@ -381,15 +398,14 @@ public class JavaStepDefs {
         System.out.println(admin.get("email"));
     }
 
-    ///////////////////////////////////////////////////////////////// DAY 6 OLD ARRAYS - CODING CHALLENGES ////////////////
     @Given("I solve coding challenges")
     public void iSolveCodingChallenges() {
         swap(2, 5);
 
-        isDivisibleBy3and4(9);
-        isDivisibleBy3and4(8);
-        isDivisibleBy3and4(12);
-        isDivisibleBy3and4(17);
+//        isDivisibleBy3and4(9);
+//        isDivisibleBy3and4(8);
+//        isDivisibleBy3and4(12);
+//        isDivisibleBy3and4(17);
 
         isDivisibleBy2and5(10);
         isDivisibleBy2and5(50);
@@ -399,7 +415,6 @@ public class JavaStepDefs {
 
     }
 
-    // HOMEWORK DAY 6 //
     void isDivisibleBy2and5(int divnum) {
         //System.out.println("Is divisible function for " + num);
         if (divnum % 2 == 0 && divnum % 5 == 0) {
@@ -413,19 +428,17 @@ public class JavaStepDefs {
         }
     }
 
-
-    void isDivisibleBy3and4(int num) {
-        //System.out.println("Is divisible function for " + num);
-        if (num % 2 == 0 && num % 5 == 0) {
-            System.out.println(num + " is divisible by 3 and 4");
-        } else if (num % 2 == 0) {
-            System.out.println(num + " is divisible by 3");
-        } else if (num % 5 == 0) {
-            System.out.println(num + " is divisible by 4");
-        } else {
-            System.out.println(num + " is not divisible by 3 and 4");
-        }
-    }
+//    void isDivisibleBy3and4(int num) {
+//        if (num % 3 == 0 && num % 4 == 0) {
+//            System.out.println(num + " is divisible by 3 and 4");
+//        } else if (num % 3 == 0) {
+//            System.out.println(num + " is divisible by 3");
+//        } else if (num % 4 == 0) {
+//            System.out.println(num + " is divisible by 4");
+//        } else {
+//            System.out.println(num + " is not divisible by 3 and 4");
+//        }
+//    }
 
     void swap(int a, int b) {
         System.out.println("Swap Function");
@@ -441,7 +454,6 @@ public class JavaStepDefs {
     }
 
 
-    ///////////////////////////////////////////////////////////////// DAY 6 HOMEWORK
     @Given("I work with arrays hw")
     public void iWorkWithArraysHw() {
         int[] mynums = {5, 2, 9, 7, 3};
@@ -467,34 +479,73 @@ public class JavaStepDefs {
     //System.out.println(num);
 
 
-    @And("I work with maps hw")
-    public void iWorkWithMapsHw() {
-        Map<String, String> info = new java.util.HashMap<>(Map.of(
-                "username", "John",
-                "middleName", "George"));
-        {
 
-            System.out.println("Values before swap: " + (info));
 
-            String temp = (info.get("username"));
-            info.put("username", (info.get("middleName")));
-            //String temp2 = (info.get("middleName"));
-            info.put("middleName", temp);
-            //info.put ("username", temp2);
+//_______________________________________________________//
 
-            System.out.println("Values after swap: " + (info));
-        }
 
-        //System.out.println(user.get("email")); info.get("key")
-        //System.out.println(admin.get("username"));
-        //System.out.println(admin.get("password"));
-        //System.out.println(admin.get("email"));
+///////////// - Day 7 - ///////////// Interview questions
+//_______________________________________________________//
 
+
+    @Given("Swap array elements")
+    public void swapArrayElements() {
+        int[] givenArray = {5,2,9,7,3};
+
+        for(int pos=0;pos<givenArray.length;pos++)
+            System.out.println(givenArray[pos]+" ");
+        System.out.println();
+
+        int temp = givenArray [2];
+        givenArray [2] = givenArray [4];
+        givenArray [4] = temp;
+
+        for(int pos=0;pos<givenArray.length;pos++)
+            System.out.println(givenArray[pos]+" ");
+        System.out.println();
+    }
+
+    @Given("Swap array elements two")
+    public void swapArrayElementsTwo() {
+        int[] givenArray = {5,2,9,7,3};
+
+        System.out.println(Arrays.toString(givenArray));
+
+        int temp = givenArray [2];
+        givenArray [2] = givenArray [4];
+        givenArray [4] = temp;
+
+        System.out.println(Arrays.toString(givenArray));
     }
 
 
+    @Given("Divisible by")
+    public void divisibleBy() {
 
+        isDivisibleBy3and4(9);
+        isDivisibleBy3and4(8);
+        isDivisibleBy3and4(12);
+        isDivisibleBy3and4(17);
+        isDivisibleBy3and4(171);
+        isDivisibleBy3and4(212);
+        isDivisibleBy3and4(612);
+        isDivisibleBy3and4(1612);
+        isDivisibleBy3and4(12612);
+    }
+        void isDivisibleBy3and4(int num) {
+            if (num % 3 == 0 && num % 4 == 0) {
+                System.out.println(num + " is divisible by 3 and 4");
+            } else if (num % 3 == 0) {
+                System.out.println(num + " is divisible by 3");
+            } else if (num % 4 == 0) {
+                System.out.println(num + " is divisible by 4");
+            } else {
+                System.out.println(num + " is not divisible by 3 and 4");
+            }
+
+    }
 }
+
 
 
 

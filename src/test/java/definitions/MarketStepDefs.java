@@ -1,3 +1,5 @@
+//TEMP DEFINITION
+
 package definitions;
 
 import com.sun.tools.xjc.reader.xmlschema.BindYellow;
@@ -13,7 +15,6 @@ import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.logging.LogEntries;
 import org.openqa.selenium.logging.LogEntry;
 import org.openqa.selenium.support.ui.Select;
-
 import static org.assertj.core.api.Assertions.assertThat;
 //import support.TestContext;
 
@@ -240,29 +241,14 @@ public class MarketStepDefs {
         new Actions(getDriver()).moveToElement(mailAndShip).perform();
         getDriver().findElement(By.xpath("//li[@class='tool-zip']//a")).click(); //full xpath: //li[@class='tool-zip']//a[contains(text(),'Look Up a ZIP Code')]
         getDriver().findElement(By.xpath("//a[contains(@class, 'zip-code-address')]")).click();
-
         //getDriver().findElement(By.xpath("//a[@id='mail-ship-width']")).click();
         //getDriver().findElement(By.xpath("//h2[@class='header-2 center']//a[contains(text(),'Look Up a ZIP Code')]")).click();
 
     }
 
-    @And("I fill out {string} street, {string} city, {string} state")
-    public void iFillOutStreetCityState(String street, String city, String state) throws InterruptedException {
-        getDriver().findElement(By.xpath("//input[@id='tAddress']")).sendKeys(street);
-        getDriver().findElement(By.xpath("//input[@id='tCity']")).sendKeys(city);
-        WebElement stateElement = getDriver().findElement(By.xpath("//select[@id='tState']"));
-        new Select(stateElement).selectByValue(state);
-        getDriver().findElement(By.xpath("//a[@id='zip-by-address']")).click();
 
 
-    }
 
-    @Then("I validate {string} zip code exists in the result")
-    public void iValidateZipCodeExistsInTheResult(String zip) throws InterruptedException {
-        Thread.sleep(1000);
-        String result = getDriver().findElement(By.xpath("//ul[@class='list-group industry-detail']")).getText();
-        assertThat(result).contains(zip);
-    }
 
     @And("I select {string}")
     public void iSelect(String arg0) throws InterruptedException {

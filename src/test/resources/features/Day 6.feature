@@ -1,7 +1,7 @@
 @java
 Feature: getDriver exercises
 
-  @java1
+  @java1 #ok
   Scenario: exercises
     Given I run to "quote" page
     And I print page details
@@ -17,6 +17,11 @@ Feature: getDriver exercises
     And I verify submitted fields saved correctly
     And I run to "quote" page
     Then I verify e-mail field behavior
+
+  @java2 #ok
+  Scenario: maps
+    And I work with maps
+    And I work with maps hw
 
 
 
