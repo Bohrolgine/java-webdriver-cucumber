@@ -18,6 +18,8 @@ import java.util.*;
 import java.util.concurrent.TimeUnit;
 
 import static org.assertj.core.api.Assertions.assertThat;
+//import static org.graalvm.compiler.debug.TTY.printf;
+//import static org.graalvm.compiler.hotspot.stubs.StubUtil.printf;
 import static support.TestContext.getDriver;
 
 
@@ -479,8 +481,6 @@ public class JavaStepDefs {
     //System.out.println(num);
 
 
-
-
 //_______________________________________________________//
 
 
@@ -490,30 +490,30 @@ public class JavaStepDefs {
 
     @Given("Swap array elements")
     public void swapArrayElements() {
-        int[] givenArray = {5,2,9,7,3};
+        int[] givenArray = {5, 2, 9, 7, 3};
 
-        for(int pos=0;pos<givenArray.length;pos++)
-            System.out.println(givenArray[pos]+" ");
+        for (int count = 0; count < givenArray.length; count++)
+            System.out.println(givenArray[count]);
         System.out.println();
 
-        int temp = givenArray [2];
-        givenArray [2] = givenArray [4];
-        givenArray [4] = temp;
+        int temp = givenArray[2];
+        givenArray[2] = givenArray[4];
+        givenArray[4] = temp;
 
-        for(int pos=0;pos<givenArray.length;pos++)
-            System.out.println(givenArray[pos]+" ");
+        for (int count = 0; count < givenArray.length; count++)
+            System.out.println(givenArray[count] + " ");
         System.out.println();
     }
 
     @Given("Swap array elements two")
     public void swapArrayElementsTwo() {
-        int[] givenArray = {5,2,9,7,3};
+        int[] givenArray = {5, 2, 9, 7, 3};
 
         System.out.println(Arrays.toString(givenArray));
 
-        int temp = givenArray [2];
-        givenArray [2] = givenArray [4];
-        givenArray [4] = temp;
+        int temp = givenArray[2];
+        givenArray[2] = givenArray[4];
+        givenArray[4] = temp;
 
         System.out.println(Arrays.toString(givenArray));
     }
@@ -532,19 +532,121 @@ public class JavaStepDefs {
         isDivisibleBy3and4(1612);
         isDivisibleBy3and4(12612);
     }
-        void isDivisibleBy3and4(int num) {
-            if (num % 3 == 0 && num % 4 == 0) {
-                System.out.println(num + " is divisible by 3 and 4");
-            } else if (num % 3 == 0) {
-                System.out.println(num + " is divisible by 3");
-            } else if (num % 4 == 0) {
-                System.out.println(num + " is divisible by 4");
-            } else {
-                System.out.println(num + " is not divisible by 3 and 4");
-            }
+
+    void isDivisibleBy3and4(int num) {
+        if (num % 3 == 0 && num % 4 == 0) {
+            System.out.println(num + " is divisible by 3 and 4");
+        } else if (num % 3 == 0) {
+            System.out.println(num + " is divisible by 3");
+        } else if (num % 4 == 0) {
+            System.out.println(num + " is divisible by 4");
+        } else {
+            System.out.println(num + " is not divisible by 3 and 4");
+        }
 
     }
+
+
+///////////// - Day 8 - ///////////// Interview questions
+//_______________________________________________________//
+
+
+    @Given("Prints all numbers from {int} up to {int}")
+    public void printsAllNumbersFromUpTo(int n1, int n2) {
+
+        int number, rev;
+
+        if (n2 < n1)
+        {rev = n1;
+        n1 = n2;
+        n2 = rev;}
+
+        System.out.println("All numbers from " + n1 + " to " + n2 + " are: ");
+
+        for (number = n1; number <= n2; number++)
+            System.out.print(number + " ");
+        }
+
+
+    @Given("Print all integer array")
+    public void printAllIntegerArray() {
+        int[] Arr = {1, 2, 5, 2, 9, 7, 3, 10, 12, 20, 50, 75, 91, 100};
+        int toFind = 10;
+        boolean found = false;
+
+        if (Arr.length == 0) {
+            System.out.println("array is null");
+        }
+
+        System.out.println("All integer array: " + Arrays.toString(Arr));
+
+        System.out.println("Odd numbers: ");
+        for (int count = 0; count < Arr.length; count++) {
+            if (Arr[count] % 2 != 0) {
+                System.out.println(Arr[count]);
+            }
+        }
+        System.out.println("Even numbers: ");
+        for (int count = 0; count < Arr.length; count++) {
+            if (Arr[count] % 2 == 0) {
+                System.out.println(Arr[count]);
+            }
+        }
+
+        for (int n : Arr) {
+            if (n == toFind) {
+                found = true;
+                break;
+            }
+        }
+        if (found)
+            System.out.println("array contains " + toFind);
+        else
+            System.out.println("array does contain " + toFind);
+    }
+
+    @Given("Fizz & Buzz functions up to {int}")
+    public void fizzBuzzFunctionsUpTo(int y) {
+
+        for (int x = 1; x <= y; x++)
+            if(x % 3 == 0 && x % 5 == 0) {
+                System.out.println("FizzBuzz");
+            }
+            else if(x % 3 == 0) {
+                System.out.println("Fizz");
+            }
+            else if(x % 5 == 0) {
+                System.out.println("Buzz");
+            }
+            else {
+                System.out.println(x);
+            }
+    }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

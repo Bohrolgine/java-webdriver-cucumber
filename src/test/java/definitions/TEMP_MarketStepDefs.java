@@ -25,7 +25,7 @@ import static org.openqa.selenium.Keys.TAB;
 import static support.TestContext.getDriver;
 
 ///////////////////////////////////////////////////////////////// DAY 5 market.feature GO TO PAGE
-public class MarketStepDefs {
+public class TEMP_MarketStepDefs {
     @Given("I go to {string} page")
     public void iGoToPage(String page) {
         getDriver().manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
