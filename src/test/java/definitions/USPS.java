@@ -7,17 +7,14 @@ import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import gherkin.ast.ScenarioOutline;
 import org.assertj.core.api.Assert;
-import org.openqa.selenium.By;
-import org.openqa.selenium.Dimension;
-import org.openqa.selenium.Keys;
-import org.openqa.selenium.WebElement;
+import org.assertj.core.data.Percentage;
+import org.openqa.selenium.*;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.interactions.SourceType;
 import org.openqa.selenium.logging.LogEntries;
 import org.openqa.selenium.logging.LogEntry;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
-
 import java.time.Instant;
 import java.util.*;
 import java.util.concurrent.TimeUnit;
@@ -28,6 +25,40 @@ import org.apache.logging.log4j.core.util.Source;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.w3c.dom.ls.LSOutput;
 import static support.TestContext.*;
+import cucumber.api.java.en.And;
+import cucumber.api.java.en.Then;
+import cucumber.api.java.en.When;
+import org.assertj.core.data.Percentage;
+import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.Keys;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.Select;
+import org.openqa.selenium.support.ui.WebDriverWait;
+import java.util.Iterator;
+import java.util.List;
+import java.util.concurrent.TimeUnit;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.openqa.selenium.support.ui.ExpectedConditions.numberOfElementsToBe;
+import static support.TestContext.getDriver;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 public class USPS {
@@ -49,6 +80,12 @@ public class USPS {
                 break;
             case "yahoo":
                 getDriver().get("https://yahoo.com/");
+                break;
+            case "converter":
+                getDriver().get("https://www.unitconverters.net/");
+                break;
+            case "calculator":
+                getDriver().get("http://www.calculator.net/");
                 break;
             default:
                 System.out.println("Not recognized page " + page);
@@ -94,6 +131,9 @@ public class USPS {
 //        //--- assertThat(result.getText()).contains(zip);
 
     }
+
+    /// USPS DAY 8 ///
+
 
     @And("I go to calculate price page")
     public void iGoToCalculatePricePage() throws InterruptedException {
@@ -354,6 +394,99 @@ public class USPS {
 
         String result = getDriver().findElement(By.xpath("//div[@class='slds-has-dividers--bottom uiAbstractList']")).getText();
         assertThat(result).doesNotContain(delivery2);
+    }
+
+    @When("I go to {string} under {string}")
+    public void iGoToUnder(String arg0, String arg1) throws InterruptedException {
+        WebElement businessTab = getDriver().findElement(By.xpath("//a[@class='menuitem'][contains(text(),'Business')]"));
+        WebElement eddm = getDriver().findElement(By.xpath("//a[contains(text(),'Every Door Direct Mail')]"));
+
+        Actions actions = new Actions(getDriver());
+        actions.moveToElement(businessTab)
+                .click(eddm)
+                .perform();
+
+        WebDriverWait wait = new WebDriverWait(getDriver(),10);
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[@id='USPS.EDDM.mapPane_layers']//*[local-name()='svg']")));
+    }
+
+    @And("I search for {string}")
+    public void iSearchFor(String address) {
+        getDriver().findElement(By.xpath("//input[@id='address']")).sendKeys(address);
+        getDriver().findElement(By.xpath("//input[@id='address']")).sendKeys(Keys.ENTER);
+
+        WebDriverWait wait = new WebDriverWait(getDriver(),10);
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//a[contains(text(),'Show Table')]")));
+
+    }
+
+    @And("I click {string} on the map")
+    public void iClickOnTheMap(String showTable) {
+
+        WebElement table = getDriver().findElement(By.xpath("//a[@class='route-table-toggle']"));
+        Actions actions = new Actions(getDriver());
+        actions.moveToElement(table)
+                .click(table)
+                .perform();
+
+        WebDriverWait wait = new WebDriverWait(getDriver(),10);
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//a[contains(text(),'Select All')]")));
+    }
+
+    @When("I click {string} on the table")
+    public void iClickOnTheTable(String select) {
+        getDriver().findElement(By.xpath("//a[contains(text(),'" + select + "')]")).click();
+
+        WebDriverWait wait = new WebDriverWait(getDriver(),10);
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[@id='modal-box']")));
+    }
+
+    @And("I close modal window")
+    public void iCloseModalWindow() {
+        getDriver().findElement(By.xpath("//div[@id='modal-box-closeModal']")).click();
+    }
+
+    @Then("I verify that summary of all rows of Cost column is equal Approximate Cost in Order Summary")
+    public void iVerifyThatSummaryOfAllRowsOfCostColumnIsEqualApproximateCostInOrderSummary() {
+        String result = getDriver().findElement(By.xpath("//div[@class='dojoxGridContent']")).getText();
+
+        String totalCountString = getDriver().findElement(By.xpath("//a[contains(@class, 'totalsArea')]")).getText();
+        int totalCount = Integer.parseInt(totalCountString.replaceAll("\\D*", "")); // total count of elements from the top of the frame
+        By costListSelector = By.xpath("//td[@idx='7']");
+        List<WebElement> costList = getDriver().findElements(By.xpath("//td[@idx='7']"));  //plural
+
+        //var 1 getting to the last element in the list:
+        //getActions().moveToElement(costList.get(costList.size() -1));
+
+        //scrolling to the last element and var 2 getting to the last element in the list
+        while (costList.size() < totalCount) {
+            int lastIndex = costList.size() -1;
+            getActions().moveToElement(costList.get(lastIndex)).perform();
+            // and reload the elements again and call the same search
+            costList = getDriver().findElements(costListSelector);
+        }
+
+        WebDriverWait wait = new WebDriverWait(getDriver(),10);
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//td[@idx='7']")));
+
+        //getWait().until(ExpectedConditions.numberOfElementsToBe(By.xpath("//td[@idx='7']"), totalCount));
+
+        double actualTotal = 0;
+        for (WebElement cost : costList) {       //take webelement cost out of costlist
+            String costString = cost.getText().replace("$", "");
+            double costTotal = Double.parseDouble(costString); // a currency formatter could be used here instead of
+            actualTotal += costTotal;   // actualTotal = actualTotal + costTotal
+        }
+
+        String expectedTotalString = getDriver().findElement(By.xpath("//span[@class='approx-cost']")).getText();
+        double expectedTotal = Double.parseDouble(expectedTotalString);
+
+        assertThat(actualTotal).isCloseTo(expectedTotal, Percentage.withPercentage(1));
+
+        System.out.println("Expected elements total: " + totalCount);
+        System.out.println("Actual elements total: " + costList.size());
+        System.out.println("The actual total: " + actualTotal);
+        System.out.println("The expected total: " + expectedTotal);
     }
 }
 

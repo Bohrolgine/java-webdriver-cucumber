@@ -45,6 +45,9 @@ public class TEMP_MarketStepDefs {
             case "yahoo":
                 getDriver().get("https://yahoo.com/");
                 break;
+            case "converter":
+                getDriver().get("http://www.unitconverters.net/");
+                break;
             default:
                 System.out.println("Not recognized page " + page);
                 //throw new RuntimeException("Not recognized page " + page);

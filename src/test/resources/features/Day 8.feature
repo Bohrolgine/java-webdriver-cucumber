@@ -13,7 +13,7 @@ Feature: Interview questions
   Scenario:Fizz & Buzz
     Given Fizz & Buzz functions up to 112
 
-  @java4 #USPS Scenarios - 02 - previous-one is in Day 7 -ok
+  @java4 #USPS Scenarios - 02 - previous-one is in Day 7 -ok ** Day 8 Starts **
   Scenario: USPS - Calculate the Price
     Given I navigate to "usps" page
     And I go to calculate price page
@@ -39,7 +39,7 @@ Feature: Interview questions
       And I fill in "4970 El Camino Real 110" street, "Los Altos" city, "CA" state
       Then I print the phone number and validate it is "800-275-8777"
 
-    @java6 # #USPS Scenarios - 05
+    @java6 # #USPS Scenarios - 05 - ok
     Scenario: Quadcopters delivery
       Given I go to "usps" page
       When I go to "Help" tab
