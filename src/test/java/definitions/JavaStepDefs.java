@@ -14,6 +14,8 @@ import org.openqa.selenium.interactions.SourceType;
 import org.openqa.selenium.logging.LogEntries;
 import org.openqa.selenium.logging.LogEntry;
 import org.openqa.selenium.support.ui.Select;
+import org.w3c.dom.ranges.Range;
+
 import java.util.*;
 import java.util.concurrent.TimeUnit;
 
@@ -622,7 +624,64 @@ public class JavaStepDefs {
                 System.out.println(x);
             }
     }
+
+    @Given("Reverse words in sentence {string}") // - from day 10 - reverse a string
+    public void reverseWordsInSentence(String sentence) {
+
+            System.out.println(sentence);
+            for (int i = sentence.length() -1; i >= 0; i--) {
+
+                System.out.print(sentence.charAt(i));
+        }
+    }
+
+    @Given("Reversing words order in sentence {string}")
+    public void reversingWordsOrderInSentence(String sentence) {
+        String a[] = sentence.split(" ");
+
+        for(int i = 0; i < a.length; i++){
+            System.out.print(a[i] + " ");
+        }
+
+        System.out.println();
+
+        for(int i=a.length -1; i >= 0; i--) {
+            System.out.print(a[i] + " ");
+        }
+    }
+
+    @Given("Reverse every third character in sentence {string}")
+    public void reverseEveryThirdCharacterInSentence(String sentence) {
+
+        System.out.println(sentence);
+        for (int i = sentence.length() -1; i >= 0; i--)
+            if(i % 3 == 0) {
+
+            System.out.print(sentence.charAt(i));
+    }
 }
+
+    @Given("Reverse every third character in sentence {string} two")
+    public void reverseEveryThirdCharacterInSentenceTwo(String sentence) {
+        System.out.println(sentence);
+        for (int i = sentence.length() -1; i >= 0; i-=3) {
+
+        System.out.print(sentence.charAt(i));
+    }
+}
+
+    @Given("Here are numbers {int} and {int}")
+    public void hereAreNumbersAnd(int a, int b) {
+    }
+
+
+
+
+}
+
+
+
+
 
 
 

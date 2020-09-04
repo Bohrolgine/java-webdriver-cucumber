@@ -45,22 +45,6 @@ import static org.openqa.selenium.support.ui.ExpectedConditions.numberOfElements
 import static support.TestContext.getDriver;
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 public class USPS {
     @Given("I navigate to {string} page")
     public void iNavigateToPage(String page) {
@@ -86,6 +70,9 @@ public class USPS {
                 break;
             case "calculator":
                 getDriver().get("http://www.calculator.net/");
+                break;
+            case "ups":
+                getDriver().get("https://www.ups.com/ca/en/Home.page");
                 break;
             default:
                 System.out.println("Not recognized page " + page);

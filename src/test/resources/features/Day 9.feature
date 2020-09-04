@@ -21,7 +21,7 @@ Feature: Converter functions
       And I calculate
       Then I verify monthly pay is "$372.86"
 
-  @java3 #USPS for some reason it goes as USPS13, however, it's the 6th - ok
+  @usps6 #USPS for some reason it goes as USPS13, however, it's the 6th - ok
   Scenario: Every door direct mail
     Given I go to "usps" page
     When I go to "Every Door Direct Mail" under "Business"
