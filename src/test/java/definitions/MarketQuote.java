@@ -1,7 +1,6 @@
 //TEMP DEFINITION
 
 package definitions;
-
 import com.sun.tools.xjc.reader.xmlschema.BindYellow;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Given;
@@ -16,16 +15,17 @@ import org.openqa.selenium.logging.LogEntries;
 import org.openqa.selenium.logging.LogEntry;
 import org.openqa.selenium.support.ui.Select;
 import static org.assertj.core.api.Assertions.assertThat;
-//import support.TestContext;
+import support.TestContext;
 
-
+import java.io.FileNotFoundException;
+import java.util.Map;
 import java.util.concurrent.TimeUnit;
-
 import static org.openqa.selenium.Keys.TAB;
+import static support.TestContext.*; // original look: import static support.TestContext.getData;
 import static support.TestContext.getDriver;
 
-///////////////////////////////////////////////////////////////// DAY 5 market.feature GO TO PAGE
-public class TEMP_MarketStepDefs {
+
+public class MarketQuote {
     @Given("I go to {string} page")
     public void iGoToPage(String page) {
         getDriver().manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
@@ -54,7 +54,6 @@ public class TEMP_MarketStepDefs {
         }
     }
 
-    ///////////////////////////////////////////////////////////////// DAY 5 market.feature DETAILS IN CONSOLE
     @And("I print page details in console")
     public void iPrintPageDetailsInConsole() {
         System.out.println(getDriver().getTitle());
@@ -65,16 +64,13 @@ public class TEMP_MarketStepDefs {
 
     }
 
-    ///////////////////////////////////////////////////////////////// DAY 5 market.feature PAGE NAVIGATION
     @And("I go back and forward, then refresh the page")
     public void iGoBackAndForwardThenRefreshThePage() {
         getDriver().navigate().back();
         getDriver().navigate().forward();
         getDriver().navigate().refresh();
-
     }
 
-    ///////////////////////////////////////////////////////////////// DAY 5 market.feature FILL OUT THE FORM
     @When("I fill out required fields")
     public void iFillOutRequiredFields() {
         getDriver().findElement(By.xpath("//input[@id='name']")).click();
@@ -90,10 +86,8 @@ public class TEMP_MarketStepDefs {
         getDriver().manage().timeouts().setScriptTimeout(2, TimeUnit.SECONDS);
         getDriver().findElement(By.xpath("//input[@name='agreedToPrivacyPolicy']")).click();
         //getDriver().findElement(By.xpath("//button[@id='formSubmit']")).click();
-
     }
 
-    ///////////////////////////////////////////////////////////////// DAY 5 market.feature FILL OUT THE FORM OPTIONAL FIELDS
     @And("I fill out optional fields")
     public void iFillOutOptionalFields() {
         getDriver().findElement(By.xpath("//input[@name='phone']")).sendKeys("12345678");
@@ -120,7 +114,6 @@ public class TEMP_MarketStepDefs {
         getDriver().findElement(By.xpath("//a[@id='link']")).click();
         getDriver().navigate().back();
 
-
         //getDriver().switchTo().defaultContent();
         //getDriver().findElement(By.xpath("//html//body")).sendKeys(Keys.CONTROL + "w");
         //getDriver().switchTo().window("[CDwindow-2A14DBD50CDD9017C834075822E2AD5A]");
@@ -129,11 +122,8 @@ public class TEMP_MarketStepDefs {
         //getDriver().getWindowHandle("CDwindow-2A14DBD50CDD9017C834075822E2AD5A");
         //getDriver().switchTo().window("viewport");
         //getDriver().close();
-
-
     }
 
-    ///////////////////////////////////////////////////////////////// DAY 5 market.feature PRINT OUT THE 35 POS&NEG
     @And("I print if number {int} is positive")
     public void iPrintIfNumberIsPositive(int x) {
         if (x > 0 && x < 36) {
@@ -145,10 +135,8 @@ public class TEMP_MarketStepDefs {
         } else if (x == 0) {
             System.out.println("You've entered 0 (zero), please re-enter.");
         }
-
     }
 
-    ///////////////////////////////////////////////////////////////// DAY 5 market.feature PRINT DAY OF THE WEEK
     @And("I print {int} th day of the week")
     public void iPrintThDayOfTheWeek(int day) {
         switch (day) {
@@ -178,7 +166,6 @@ public class TEMP_MarketStepDefs {
         }
     }
 
-    ///////////////////////////////////////////////////////////////// DAY 5 market.feature CHANGE RESOLUTION
     @And("I change res to {string}")
     public void iChangeResTo(String resolution) {
         switch (resolution.toLowerCase()) {
@@ -193,13 +180,12 @@ public class TEMP_MarketStepDefs {
         }
     }
 
-    ///////////////////////////////////////////////////////////////// DAY 5 market.feature SUBMIT BUTTON CLICK
     @And("I submit the form")
     public void iSubmitTheForm() {
         getDriver().findElement(By.xpath("//button[@id='formSubmit']")).click();
     }
 
-    ///////////////////////////////////////////////////////////////// DAY 5 market.feature EMAIL FIELD BEH assertion https://assertj.github.io/doc/
+
     @When("I verify email field behavior")
     public void iVerifyEmailFieldBehavior() {
         getDriver().findElement(By.xpath("//input[@name='email']")).sendKeys("setofrandomsymbols");
@@ -214,10 +200,8 @@ public class TEMP_MarketStepDefs {
         getDriver().findElement(By.xpath("//input[@name='email']")).sendKeys("name@name.name");
         getDriver().findElement(By.xpath("//input[@name='email']")).sendKeys(Keys.ENTER);
         assertThat(getDriver().findElement(By.xpath("//label[@id='email-error']")).isDisplayed()).isFalse();
-
     }
 
-    ///////////////////////////////////////////////////////////////// DAY 5 market.feature SUBMITTED FIELDS assertion https://assertj.github.io/doc/
     @Then("I verify that submitted fields saved correctly")
     public void iVerifyThatSubmittedFieldsSavedCorrectly() {
         getDriver().manage().timeouts().setScriptTimeout(2, TimeUnit.SECONDS);
@@ -230,34 +214,24 @@ public class TEMP_MarketStepDefs {
         assertThat(getDriver().findElement(By.xpath("//b[@name='username']")).getText()).isEqualTo("username");
         assertThat(getDriver().findElement(By.xpath("//b[@name='password']")).getText()).isEqualTo("[entered]");
         assertThat(getDriver().findElement(By.xpath("//b[@name='email']")).getText()).isEqualTo("test@bj.com");
-
-
     }
 
-    ///////////////////////////////////////////////////////////////// DAY 7, 8, 9 - USPS ZIP CODE
-
-    @When("I go to Lookup ZIP page by address")
-    public void iGoToLookupZIPPageByAddress() throws InterruptedException {
-        WebElement mailAndShip = getDriver().findElement(By.xpath("//a[@id='mail-ship-width']"));
-        //Actions actions = new Actions(getDriver());
-        //actions.moveToElement(mailAndShip).perform(); //move to element // - 2 strokes he makes mouseover via a variable
-        new Actions(getDriver()).moveToElement(mailAndShip).perform();
-        getDriver().findElement(By.xpath("//li[@class='tool-zip']//a")).click(); //full xpath: //li[@class='tool-zip']//a[contains(text(),'Look Up a ZIP Code')]
-        getDriver().findElement(By.xpath("//a[contains(@class, 'zip-code-address')]")).click();
-        //getDriver().findElement(By.xpath("//a[@id='mail-ship-width']")).click();
-        //getDriver().findElement(By.xpath("//h2[@class='header-2 center']//a[contains(text(),'Look Up a ZIP Code')]")).click();
-
-    }
-
-
-
-
+//    @When("I go to Lookup ZIP page by address")
+//    public void iGoToLookupZIPPageByAddress() throws InterruptedException {
+//        WebElement mailAndShip = getDriver().findElement(By.xpath("//a[@id='mail-ship-width']"));
+//        //Actions actions = new Actions(getDriver());
+//        //actions.moveToElement(mailAndShip).perform(); //move to element // - 2 strokes he makes mouseover via a variable
+//        new Actions(getDriver()).moveToElement(mailAndShip).perform();
+//        getDriver().findElement(By.xpath("//li[@class='tool-zip']//a")).click(); //full xpath: //li[@class='tool-zip']//a[contains(text(),'Look Up a ZIP Code')]
+//        getDriver().findElement(By.xpath("//a[contains(@class, 'zip-code-address')]")).click();
+//        //getDriver().findElement(By.xpath("//a[@id='mail-ship-width']")).click();
+//        //getDriver().findElement(By.xpath("//h2[@class='header-2 center']//a[contains(text(),'Look Up a ZIP Code')]")).click();
+//    }
 
     @And("I select {string}")
     public void iSelect(String arg0) throws InterruptedException {
         getDriver().findElement(By.xpath("//option[contains(text(),'United Kingdom (United Kingdom of Great Britain an')]")).click();
     }
-
 
     @And("I print logs to the console")
     public void iPrintLogsToTheConsole() throws InterruptedException {
@@ -268,7 +242,6 @@ public class TEMP_MarketStepDefs {
             System.out.println(log);
         }
         System.out.println(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> Browser logs. End. >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
-
     }
 
     @And("I fill multi-select")
@@ -292,7 +265,36 @@ public class TEMP_MarketStepDefs {
         carsSelect.selectByValue("Ford");
         carsSelect.selectByValue("BMW");
 
-
         Thread.sleep(3000);
     }
-}
+
+
+
+
+    ///////////// - Day 11 - ///////////// Using of YML
+//_______________________________________________________//
+
+    @Given("I fill out required fields for {string}")
+    public void iFillOutRequiredFieldsFor(String role) {
+        Map<String, String> user = getData(role);
+
+        getDriver().findElement(By.xpath("//input[@name='username']")).sendKeys(user.get("username"));
+        getDriver().findElement(By.xpath("//input[@name='email']")).sendKeys(user.get("email"));
+        getDriver().findElement(By.xpath("//input[@id='password']")).sendKeys(user.get("password"));
+        getDriver().findElement(By.xpath("//input[@id='confirmPassword']")).sendKeys(user.get("password"));
+
+        getDriver().findElement(By.xpath("//input[@id='name']")).click();
+        //getDriver().manage().timeouts().setScriptTimeout(2, TimeUnit.SECONDS);
+        getDriver().findElement(By.xpath("//input[@id='firstName']")).sendKeys(user.get("firstName"));
+        getDriver().findElement(By.xpath("//input[@id='middleName']")).sendKeys(user.get("middleName"));
+        getDriver().findElement(By.xpath("//input[@id='lastName']")).sendKeys(user.get("lastName"));
+        getDriver().findElement(By.xpath("//span[contains(text(),'Save')]")).click();
+
+        getDriver().manage().timeouts().setScriptTimeout(2, TimeUnit.SECONDS);
+        getDriver().findElement(By.xpath("//input[@name='agreedToPrivacyPolicy']")).click();
+        //getDriver().findElement(By.xpath("//button[@id='formSubmit']")).click();
+        getDriver().manage().timeouts().setScriptTimeout(6, TimeUnit.SECONDS);
+    }
+
+
+    }

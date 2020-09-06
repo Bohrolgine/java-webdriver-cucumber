@@ -672,11 +672,39 @@ public class JavaStepDefs {
 
     @Given("Here are numbers {int} and {int}")
     public void hereAreNumbersAnd(int a, int b) {
+
+        //if (a % 5 == 0 && b % 5 == 0) {
+        //System.out.println( "Entered numbers aren't divisible by 5, please re-enter numbers from 1 to 20 divisible by 5");
+        //}
+        //else {
+        if (a >= 1 && a <= 10 && b >= 5 && b <= 10) {
+            System.out.println("entered numbers belong to 1...10 range");
+        } else if (a >= 11 && a <= 20 && b >= 11 && b <= 20) {
+            System.out.println("entered numbers belong to 11...20 range");
+        } else if (a >= 1 && a <= 10 && b >= 11 && b <= 20) {
+            System.out.println("1st entered number belongs to 1...10 range & second entered number belongs to 11...20 range");
+        } else if (a >= 11 && a <= 20 && b >= 1 && b <= 10) {
+            System.out.println("1st entered number belongs to 10...20 range & second entered number belongs to 1...10 range");
+        }
+    }
+
+    @Given("Two numbers are {int} and {int}")
+    public void twoNumbersAreAnd(int a, int b) {
+        int sum = a + b;
+        System.out.println("Addition of 2 numbers: " + sum );
+
+        assertThat(a = sum - b);
     }
 
 
 
 
+    //Timeouts:
+    // getDriver().manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
+    // getDriver().manage().timeouts().setScriptTimeout(2, TimeUnit.SECONDS);
+    // getDriver().switchTo().window(getDriver().getWindowHandles().iterator().next()); // switch back
+    // //getDriver().switchTo().defaultContent();
+    // //getDriver().switchTo().window("[CDwindow-2A14DBD50CDD9017C834075822E2AD5A]");
 }
 
 

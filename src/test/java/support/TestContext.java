@@ -17,8 +17,12 @@ import org.openqa.selenium.remote.RemoteWebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import org.yaml.snakeyaml.Yaml;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.InputStream;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
@@ -31,6 +35,21 @@ public class TestContext {
 
     public static WebDriver getDriver() {
         return driver;
+    }
+
+    /////////////////////////////////////////////////////////////////////////
+
+    public static Map<String, String> getData(String fileName) //throws FileNotFoundException {
+    {
+        try {
+            String path = System.getProperty("user.dir") + "/src/test/resources/data/" + fileName + ".yml";
+            File file = new File(path);
+            InputStream stream = new FileInputStream(file);
+            Yaml yaml = new Yaml();
+            return yaml.load(stream);
+        } catch (FileNotFoundException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     /////////////////////////////////////////////////////////////////////////

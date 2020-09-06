@@ -13,15 +13,15 @@ import static support.TestContext.getDriver;
 
 public class Converter {
     @When("I click on {string}")
-    public void iClickOn(String measure) {
+    public void iClickOn(String value) {
 
-        getDriver().findElement(By.xpath("//div[@id='menu']//a[contains(text(),'" + measure + "')]")).click();
+        getDriver().findElement(By.xpath("//div[@id='menu']//a[contains(text(),'" + value + "')]")).click();
     }
 
     @And("I set {string} to {string}")
-    public void iSetTo(String m1, String m2) {
-        getDriver().findElement(By.xpath("//select[@id='calFrom']//option[contains(text(),'" + m1 + "')]")).click();
-        getDriver().findElement(By.xpath("//select[@id='calTo']//option[contains(text(),'" + m2 + "')]")).click();
+    public void iSetTo(String from, String to) {
+        getDriver().findElement(By.xpath("//select[@id='calFrom']//option[contains(text(),'" + from + "')]")).click();
+        getDriver().findElement(By.xpath("//select[@id='calTo']//option[contains(text(),'" + to + "')]")).click();
     }
 
     @Then("I enter into From field {string} and verify {string} result")

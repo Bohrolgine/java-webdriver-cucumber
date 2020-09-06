@@ -17,11 +17,15 @@ Feature: Interview questions
   Scenario:  Reverse every third character of a string two
     Given Reverse every third character in sentence "I am Automation Engineer" two
 
-  @java5  #  User inputs two numbers which are divided by 5. - no way
+  @java5  #  User inputs two numbers which are divided by 5. - disabled if it 5s condition - ok
           # If a number is in a range of 1..10 - print it saying it is in the range of 1 from 10.
           # If a number is in the range of 10..20 - print it saying it's in the range of 10..20.
   Scenario:  Numbers spectre
     Given Here are numbers 5 and 11
+
+  @java6  #   Write a java program to add 2 numbers and it will print addition. How will you test the addition code?
+  Scenario:  Print addition
+    Given Two numbers are 5 and 11
 
 
   @ups1

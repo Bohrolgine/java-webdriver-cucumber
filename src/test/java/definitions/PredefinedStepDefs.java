@@ -226,27 +226,10 @@ public class PredefinedStepDefs {
         new Actions(getDriver()).moveToElement(getDriver().findElement(By.xpath(xpath))).perform();
     }
 
+    public  JavascriptExecutor getExecutor(){
+        return (JavascriptExecutor)getDriver();
+}
 
 }
 
 
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-//public class TEMP_UspsStepdefs {
-//    @When("I go to Find a Location Page")
-//    public void iGoToFindALocationPage() {
-//        WebElement mailShip = getDriver().findElement(By.xpath("//a[@id='mail-ship-width']"));
-//        new Actions(getDriver()).moveToElement(mailShip).perform();
-//        getDriver().findElement(By.xpath("//li[@class='tool-find']/a")).click();
-//    }
-//
-//    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-//    @And("I filter by {string} Location Types, {string} Services, {string} Available Services")
-//    public void iFilterByLocationTypesServicesAvailableServices(String locationType, String service, String available) throws InterruptedException {
-//        getDriver().findElement(By.xpath("//button[@id='post-offices-select']")).click();
-//        getDriver().findElement(By.xpath("//a[string()='" + locationType + "']")).click();
-//        getDriver().findElement(By.xpath("//button[@id='service-type-select']")).click();
-//        getDriver().findElement(By.xpath("//a[string()='" + service + "']")).click();
-//        //getDriver().findElement(By.xpath)
-//
-//        Thread.sleep(5000);
-//    }
