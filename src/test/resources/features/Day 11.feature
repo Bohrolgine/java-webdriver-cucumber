@@ -31,7 +31,7 @@ Feature: ScenarioOutline cases
       | 111 S Michigan Ave  | Chicago   | IL    | 60603 |
 
 
-  @calc1 # #Converter with Scenario Outline - ok
+  @calc1 #Converter with Scenario Outline - ok
   Scenario Outline: Validate diff conversions
     Given I navigate to "converter" page
     When I click on "<value>"
@@ -48,7 +48,7 @@ Feature: ScenarioOutline cases
       | Time        | Year         | Day        | 38    | 13879.5      |
 
 
-  @java2 #Calculator
+  @calc2 #Calculator
   Scenario Outline: Verify calculator results
     Given I navigate to "calculator" page
     When I navigate to "<type>"
@@ -66,5 +66,23 @@ Feature: ScenarioOutline cases
       | Auto Loan Calculator | Please provide a positive interest value | 12076 | 55    | 4.2      | 10000 | 0     | Arizona    | 6   | 290  | $41.56  |
 
 
+  @java2   #Write a function that find 2 max numbers in an array - ok
+  Scenario: Write a function that find 2 max numbers in an array
+    Given Write a function that find two max numbers in an array
 
 
+  @java3   #Write a function that finds if array contains duplicates - ok
+  Scenario: Write a function that finds if array contains duplicates
+    Given Write a function that finds if array contains duplicates
+
+  @java3-1   #Write a function that finds if array contains duplicates via HashSet - ok
+  Scenario: Write a function that finds if array contains duplicates via HashSet
+    Given Write a function that finds if array contains duplicates via HashSet
+
+  @java4   #Write a function that finds if word is palindrome - ok
+  Scenario: Write a function that finds if word is palindrome
+    Given Write a function that finds if word is palindrome
+
+  @java5   #Write a function that counts number of each character in a string
+  Scenario: Write a function that counts number of each character in a string
+    Given Write a function that counts number of each character in a string

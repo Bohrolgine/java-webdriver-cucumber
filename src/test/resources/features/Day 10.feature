@@ -23,6 +23,13 @@ Feature: Interview questions
   Scenario:  Numbers spectre
     Given Here are numbers 5 and 11
 
+  @java5-1  #  User inputs two numbers which are divided by 5. - disabled if it 5s condition - ok
+            # If a number is in a range of 1..10 - print it saying it is in the range of 1 from 10.
+            # If a number is in the range of 10..20 - print it saying it's in the range of 10..20.
+  Scenario:  Numbers spectre
+    Given Here are my numbers 5 and 11
+
+
   @java6  #   Write a java program to add 2 numbers and it will print addition. How will you test the addition code?
   Scenario:  Print addition
     Given Two numbers are 5 and 11

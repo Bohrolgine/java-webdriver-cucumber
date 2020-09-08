@@ -22,6 +22,7 @@ import java.util.concurrent.TimeUnit;
 import static org.assertj.core.api.Assertions.assertThat;
 //import static org.graalvm.compiler.debug.TTY.printf;
 //import static org.graalvm.compiler.hotspot.stubs.StubUtil.printf;
+import static org.assertj.core.api.Assertions.shouldHaveThrown;
 import static support.TestContext.getDriver;
 
 
@@ -558,16 +559,17 @@ public class JavaStepDefs {
 
         int number, rev;
 
-        if (n2 < n1)
-        {rev = n1;
-        n1 = n2;
-        n2 = rev;}
+        if (n2 < n1) {
+            rev = n1;
+            n1 = n2;
+            n2 = rev;
+        }
 
         System.out.println("All numbers from " + n1 + " to " + n2 + " are: ");
 
         for (number = n1; number <= n2; number++)
             System.out.print(number + " ");
-        }
+    }
 
 
     @Given("Print all integer array")
@@ -611,16 +613,13 @@ public class JavaStepDefs {
     public void fizzBuzzFunctionsUpTo(int y) {
 
         for (int x = 1; x <= y; x++)
-            if(x % 3 == 0 && x % 5 == 0) {
+            if (x % 3 == 0 && x % 5 == 0) {
                 System.out.println("FizzBuzz");
-            }
-            else if(x % 3 == 0) {
+            } else if (x % 3 == 0) {
                 System.out.println("Fizz");
-            }
-            else if(x % 5 == 0) {
+            } else if (x % 5 == 0) {
                 System.out.println("Buzz");
-            }
-            else {
+            } else {
                 System.out.println(x);
             }
     }
@@ -628,10 +627,10 @@ public class JavaStepDefs {
     @Given("Reverse words in sentence {string}") // - from day 10 - reverse a string
     public void reverseWordsInSentence(String sentence) {
 
-            System.out.println(sentence);
-            for (int i = sentence.length() -1; i >= 0; i--) {
+        System.out.println(sentence);
+        for (int i = sentence.length() - 1; i >= 0; i--) {
 
-                System.out.print(sentence.charAt(i));
+            System.out.print(sentence.charAt(i));
         }
     }
 
@@ -639,13 +638,13 @@ public class JavaStepDefs {
     public void reversingWordsOrderInSentence(String sentence) {
         String a[] = sentence.split(" ");
 
-        for(int i = 0; i < a.length; i++){
+        for (int i = 0; i < a.length; i++) {
             System.out.print(a[i] + " ");
         }
 
         System.out.println();
 
-        for(int i=a.length -1; i >= 0; i--) {
+        for (int i = a.length - 1; i >= 0; i--) {
             System.out.print(a[i] + " ");
         }
     }
@@ -654,21 +653,21 @@ public class JavaStepDefs {
     public void reverseEveryThirdCharacterInSentence(String sentence) {
 
         System.out.println(sentence);
-        for (int i = sentence.length() -1; i >= 0; i--)
-            if(i % 3 == 0) {
+        for (int i = sentence.length() - 1; i >= 0; i--)
+            if (i % 3 == 0) {
 
-            System.out.print(sentence.charAt(i));
+                System.out.print(sentence.charAt(i));
+            }
     }
-}
 
     @Given("Reverse every third character in sentence {string} two")
     public void reverseEveryThirdCharacterInSentenceTwo(String sentence) {
         System.out.println(sentence);
-        for (int i = sentence.length() -1; i >= 0; i-=3) {
+        for (int i = sentence.length() - 1; i >= 0; i -= 3) {
 
-        System.out.print(sentence.charAt(i));
+            System.out.print(sentence.charAt(i));
+        }
     }
-}
 
     @Given("Here are numbers {int} and {int}")
     public void hereAreNumbersAnd(int a, int b) {
@@ -688,24 +687,136 @@ public class JavaStepDefs {
         }
     }
 
+    @Given("Here are my numbers {int} and {int}") // aka 5-1
+    public void hereAreMyNumbersAnd(int a, int b) {
+
+        if (a % 5 != 0 || b % 5 != 0) {
+            System.out.println("Both or one of numbers aren't divisible by 5");
+        } else if (a / 5 == 1) {
+            System.out.println("Range is 1...10");
+        } else if (a / 5 == 2) {
+            System.out.println("Number goes to range 1...10 and range 10...20");
+        } else if (a / 5 == 3 || a / 5 == 4) {
+            System.out.println("Range is 10...20");
+        } else if (a <= 0 || a > 20) {
+            System.out.println("Number is out of range");
+        }
+    }
+
     @Given("Two numbers are {int} and {int}")
     public void twoNumbersAreAnd(int a, int b) {
         int sum = a + b;
-        System.out.println("Addition of 2 numbers: " + sum );
+        System.out.println("Addition of 2 numbers: " + sum);
 
         assertThat(a = sum - b);
     }
 
+    @Given("Write a function that find two max numbers in an array")
+    public void writeAFunctionThatFindTwoMaxNumbersInAnArray() {
+
+        int[] arrayM = {10, 5, 350, 351, 45, 95, 560, 101, 1, 555, -5, 0, 1024, 768, 769, 900};
+        int max1 = 0;
+        int max2 = 0;
+
+        for (int i = 0; i < arrayM.length; i++) {
+            if (max1 < arrayM[i]) {
+                max2 = max1;
+                max1 = arrayM[i];
+            } else if (max2 < arrayM[i]) {
+                max2 = arrayM[i];
+            }
+        }
+        System.out.println("1st max is: " + max1 + " and 2nd max is: " + max2);
+    }
+
+    @Given("Write a function that finds if array contains duplicates")
+    public void writeAFunctionThatFindsIfArrayContainsDuplicates() {
+
+        int[] arrayM = {10, 5, 450, 351, 450, 95, 560, 101, 1, 555, -5, 0, 1024, 768, 769, 900};
+        boolean trigger = false;
+
+        for (int i = 0; i < arrayM.length; i++) {
+
+            for (int j = i + 1; j < arrayM.length; j++) {
+
+                if (arrayM[i] == arrayM[j]) {
+                    System.out.println(arrayM[i] + " is duplicated.");
+                    trigger = true;
+                }
+            }
+        }
+        if (!trigger) {   //(trigger == false) - simplified
+            System.out.println("No duplicates found");
+        }
+    }
+
+    @Given("Write a function that finds if array contains duplicates via HashSet")
+    public void writeAFunctionThatFindsIfArrayContainsDuplicatesViaHashSet() {
+        String[] arrayM = {"java", "cucumber", "java", "coding", "maven", "black metal", "cucumbers", "python", "legal notice"};
+
+        HashSet<String> langs = new HashSet<String>();
+
+        for (String l : arrayM) {
+            if (langs.add(l) == false) {
+                System.out.println("Duplicated element: " + l);
+            }
+        }
+    }
+
+    @Given("Write a function that finds if word is palindrome")
+    public void writeAFunctionThatFindsIfWordIsPalindrome() {
+        String original = "ablewasiereisawelba";
+        String reversed = "";
+
+
+        int len = original.length();
+
+        for (int i = len - 1; i >= 0; i--) {
+            reversed = reversed + original.charAt(i);
+        }
+
+        if (original.equals(reversed)) {//same as if (original == reversed)
+
+            System.out.println(reversed + " is palindrome string");
+        } else {
+            System.out.println(reversed + " is not palindrome string");
+        }
+    }
+
+    @Given("Write a function that counts number of each character in a string")
+    public void writeAFunctionThatCountsNumberOfEachCharacterInAString() {
+
+//        int totalCount = mystring.length();
+//        int totalCountWithNoSym = mystring.replace("a", "").length();
+//        int count = (totalCount - totalCountWithNoSym);
+//        System.out.println("");
+
+        String mystring = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam consectetur.";
+        //String mystringupd = mystring.replace(" ", "");
+        Map<Character, Integer> charMapCount = new HashMap<>();
+
+        for (Character c : mystring.toCharArray()) {
+
+            if (charMapCount.containsKey(c)) {
+                charMapCount.put(c, charMapCount.get(c) +1);
+            }
+            else {
+                charMapCount.put(c,1);
+            }
+        }
+        System.out.println(charMapCount);
+        }
+    }
 
 
 
-    //Timeouts:
-    // getDriver().manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
-    // getDriver().manage().timeouts().setScriptTimeout(2, TimeUnit.SECONDS);
-    // getDriver().switchTo().window(getDriver().getWindowHandles().iterator().next()); // switch back
-    // //getDriver().switchTo().defaultContent();
-    // //getDriver().switchTo().window("[CDwindow-2A14DBD50CDD9017C834075822E2AD5A]");
-}
+//Timeouts:
+// getDriver().manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
+// getDriver().manage().timeouts().setScriptTimeout(2, TimeUnit.SECONDS);
+// getDriver().switchTo().window(getDriver().getWindowHandles().iterator().next()); // switch back
+// //getDriver().switchTo().defaultContent();
+// //getDriver().switchTo().window("[CDwindow-2A14DBD50CDD9017C834075822E2AD5A]");
+
 
 
 
