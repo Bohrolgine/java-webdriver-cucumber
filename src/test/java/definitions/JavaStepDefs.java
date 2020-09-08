@@ -627,10 +627,11 @@ public class JavaStepDefs {
     @Given("Reverse words in sentence {string}") // - from day 10 - reverse a string
     public void reverseWordsInSentence(String sentence) {
 
-        System.out.println(sentence);
+        System.out.println("Original sentence: " + sentence);
+
         for (int i = sentence.length() - 1; i >= 0; i--) {
 
-            System.out.print(sentence.charAt(i));
+            System.out.print("Reversed sentence: " + sentence.charAt(i));
         }
     }
 

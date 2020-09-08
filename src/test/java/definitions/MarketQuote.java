@@ -1,6 +1,7 @@
 //TEMP DEFINITION
 
 package definitions;
+
 import com.sun.tools.xjc.reader.xmlschema.BindYellow;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Given;
@@ -14,12 +15,15 @@ import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.logging.LogEntries;
 import org.openqa.selenium.logging.LogEntry;
 import org.openqa.selenium.support.ui.Select;
+
 import static org.assertj.core.api.Assertions.assertThat;
+
 import support.TestContext;
 
 import java.io.FileNotFoundException;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
+
 import static org.openqa.selenium.Keys.TAB;
 import static support.TestContext.*; // original look: import static support.TestContext.getData;
 import static support.TestContext.getDriver;
@@ -269,8 +273,6 @@ public class MarketQuote {
     }
 
 
-
-
     ///////////// - Day 11 - ///////////// Using of YML
 //_______________________________________________________//
 
@@ -295,6 +297,4 @@ public class MarketQuote {
         //getDriver().findElement(By.xpath("//button[@id='formSubmit']")).click();
         getDriver().manage().timeouts().setScriptTimeout(6, TimeUnit.SECONDS);
     }
-
-
-    }
+}

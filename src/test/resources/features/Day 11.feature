@@ -13,7 +13,7 @@ Feature: ScenarioOutline cases
 #    }
 
 
-  @java1 # Mirror flip string reverse - ok
+  @java1 # "USER" fields via YML - ok
   Scenario: I fill out required fields via yml
     Given I navigate to "quote" page
     Given I fill out required fields for "user"
@@ -48,7 +48,7 @@ Feature: ScenarioOutline cases
       | Time        | Year         | Day        | 38    | 13879.5      |
 
 
-  @calc2 #Calculator
+  @calc2 #Calculator - ok
   Scenario Outline: Verify calculator results
     Given I navigate to "calculator" page
     When I navigate to "<type>"
@@ -83,6 +83,6 @@ Feature: ScenarioOutline cases
   Scenario: Write a function that finds if word is palindrome
     Given Write a function that finds if word is palindrome
 
-  @java5   #Write a function that counts number of each character in a string
+  @java5   #Write a function that counts number of each character in a string - ok
   Scenario: Write a function that counts number of each character in a string
     Given Write a function that counts number of each character in a string
