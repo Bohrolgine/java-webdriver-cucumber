@@ -4,17 +4,9 @@ import cucumber.api.java.en.And;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
-import gherkin.ast.ScenarioOutline;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Dimension;
 import org.openqa.selenium.Keys;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.interactions.Actions;
-import org.openqa.selenium.interactions.SourceType;
-import org.openqa.selenium.logging.LogEntries;
-import org.openqa.selenium.logging.LogEntry;
-import org.openqa.selenium.support.ui.Select;
-import org.w3c.dom.ranges.Range;
 
 import java.util.*;
 import java.util.concurrent.TimeUnit;
@@ -22,7 +14,6 @@ import java.util.concurrent.TimeUnit;
 import static org.assertj.core.api.Assertions.assertThat;
 //import static org.graalvm.compiler.debug.TTY.printf;
 //import static org.graalvm.compiler.hotspot.stubs.StubUtil.printf;
-import static org.assertj.core.api.Assertions.shouldHaveThrown;
 import static support.TestContext.getDriver;
 
 
@@ -799,15 +790,69 @@ public class JavaStepDefs {
         for (Character c : mystring.toCharArray()) {
 
             if (charMapCount.containsKey(c)) {
-                charMapCount.put(c, charMapCount.get(c) +1);
-            }
-            else {
-                charMapCount.put(c,1);
+                charMapCount.put(c, charMapCount.get(c) + 1);
+            } else {
+                charMapCount.put(c, 1);
             }
         }
         System.out.println(charMapCount);
+    }
+
+    @Given("Write a function that finds any two element of an array result in sum")
+    public void writeAFunctionThatFindsAnyTwoElementOfAnArrayResultInSum() {
+
+        int[] arr = {1, 5, 7, 12, 32, 43, 2, 7, 8, 3, 14};
+        int low = 0, high = (arr.length - 1), sum = 15;
+
+        for (int i = 0; i < arr.length - 1; i++) {
+            for (int j = i + 1; j < arr.length; j++) {
+                if (arr[i] + arr[j] == sum) {
+                    System.out.println(arr[i] + " and " + arr[j]);
+                }
+            }
         }
     }
+
+    @Given("Write a function that find factorial of a number")
+    public void writeAFunctionThatFindFactorialOfANumber() {
+
+        int num = 9, factorial = 1;
+
+        for (int i = num; i > 0; i--) {
+            factorial = factorial * i;
+        }
+        System.out.println("Factorial of " + num + " is: " + factorial);
+    }
+
+    @Given("Write a function that performs a binary search")
+    public void writeAFunctionThatPerformsABinarySearch() {
+        int[] arr = {1, 5, 7, 12, 32, 43, 44, 47, 48, 53, 64};
+        int search = 48;
+        int start = 0;
+        int end = arr.length - 1;
+        boolean flag = false;
+
+        while (start <= end) {
+            int mid = (start + end) / 2;
+            if (arr[mid] == search) {
+                System.out.println("Element " + search +  " is found under index " + mid + " (from 0)");
+                flag = true;
+                break;
+            }
+            if (arr[mid] < search) {
+                start = mid + 1;
+            }
+            if (arr[mid] > search) {
+                end = mid -1;
+            }
+        }
+    if(flag == false) {
+        System.out.println( "Element not found");
+    }
+
+    }
+
+}
 
 
 
