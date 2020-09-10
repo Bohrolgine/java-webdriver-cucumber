@@ -43,7 +43,8 @@ import java.util.concurrent.TimeUnit;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.openqa.selenium.support.ui.ExpectedConditions.numberOfElementsToBe;
 import static support.TestContext.getDriver;
-
+import static org.openqa.selenium.support.ui.ExpectedConditions.*;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 
 public class USPS {
     @Given("I navigate to {string} page")
@@ -189,6 +190,9 @@ public class USPS {
         getDriver().findElement(By.xpath("//a[@class='dn-attr-a'][text()='" + filter1 + "']")).click();
 
         wait.until(ExpectedConditions.invisibilityOf(spinner));
+
+        /// getWait(5).until(ExpectedConditions.visibilityOf(element));
+
     }
 
     @Then("I verify that {string} results found") // -ok
@@ -206,11 +210,13 @@ public class USPS {
     }
 
     @When("I select {string} in results")  // -ok
-    public void iSelectInResults(String result) {
-        getDriver().findElement(By.xpath("//span[contains(text(),'Priority Mail | USPS')]")).click();
+    public void iSelectInResults(String result)  throws InterruptedException {
+        WebElement spinner = getDriver().findElement(By.xpath("//div[@class='white-spinner-container']"));
+        getWait().until(invisibilityOf(spinner));
+        WebDriverWait wait = new WebDriverWait(getDriver(), 10);
 
+        getDriver().findElement(By.xpath("//span[contains(text(),'" + result +"')]")).click();
     }
-
 
     @And("I click {string} button") // -ok
     public void iClickButton(String button) {
@@ -341,7 +347,7 @@ public class USPS {
     @Then("I print the phone number and validate it is {string}")
     public void iPrintThePhoneNumberAndValidateItIs(String phone) throws InterruptedException {
 
-       //WebElement firstResult = getDriver().findElement(By.xpath("//div[@id='1440608']//span[@class='listArrow']"));
+        //WebElement firstResult = getDriver().findElement(By.xpath("//div[@id='1440608']//span[@class='listArrow']"));
         //WebElement resultContainer = getDriver().findElement(By.xpath("//p[@class='ask-usps']"));
 
         Thread.sleep(3000);
@@ -362,7 +368,7 @@ public class USPS {
         WebElement search = getDriver().findElement(By.xpath("//input[@id='137:0']"));
 
         new WebDriverWait(getDriver(), 3)
-        .until(ExpectedConditions.elementToBeClickable(search));
+                .until(ExpectedConditions.elementToBeClickable(search));
 
         Actions actions = new Actions(getDriver());
         actions.moveToElement(search)
@@ -384,17 +390,17 @@ public class USPS {
     }
 
     @When("I go to {string} under {string}")
-    public void iGoToUnder(String arg0, String arg1) throws InterruptedException {
-        WebElement businessTab = getDriver().findElement(By.xpath("//a[@class='menuitem'][contains(text(),'Business')]"));
-        WebElement eddm = getDriver().findElement(By.xpath("//a[contains(text(),'Every Door Direct Mail')]"));
+    public void iGoToUnder(String option1, String menu1) throws InterruptedException {
+        WebElement businessTab = getDriver().findElement(By.xpath("//a[@class='menuitem'][text()='" + menu1 + "']"));
+        WebElement subsection = getDriver().findElement(By.xpath("//a[text()='" + option1 + "']"));
 
         Actions actions = new Actions(getDriver());
         actions.moveToElement(businessTab)
-                .click(eddm)
+                .click(subsection)
                 .perform();
 
-        WebDriverWait wait = new WebDriverWait(getDriver(),10);
-        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[@id='USPS.EDDM.mapPane_layers']//*[local-name()='svg']")));
+       // WebDriverWait wait = new WebDriverWait(getDriver(), 10);
+       // wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[@id='USPS.EDDM.mapPane_layers']//*[local-name()='svg']")));
     }
 
     @And("I search for {string}")
@@ -402,7 +408,7 @@ public class USPS {
         getDriver().findElement(By.xpath("//input[@id='address']")).sendKeys(address);
         getDriver().findElement(By.xpath("//input[@id='address']")).sendKeys(Keys.ENTER);
 
-        WebDriverWait wait = new WebDriverWait(getDriver(),10);
+        WebDriverWait wait = new WebDriverWait(getDriver(), 10);
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//a[contains(text(),'Show Table')]")));
 
     }
@@ -416,7 +422,7 @@ public class USPS {
                 .click(table)
                 .perform();
 
-        WebDriverWait wait = new WebDriverWait(getDriver(),10);
+        WebDriverWait wait = new WebDriverWait(getDriver(), 10);
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//a[contains(text(),'Select All')]")));
     }
 
@@ -424,7 +430,7 @@ public class USPS {
     public void iClickOnTheTable(String select) {
         getDriver().findElement(By.xpath("//a[contains(text(),'" + select + "')]")).click();
 
-        WebDriverWait wait = new WebDriverWait(getDriver(),10);
+        WebDriverWait wait = new WebDriverWait(getDriver(), 10);
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[@id='modal-box']")));
     }
 
@@ -447,13 +453,13 @@ public class USPS {
 
         //scrolling to the last element and var 2 getting to the last element in the list
         while (costList.size() < totalCount) {
-            int lastIndex = costList.size() -1;
+            int lastIndex = costList.size() - 1;
             getActions().moveToElement(costList.get(lastIndex)).perform();
             // and reload the elements again and call the same search
             costList = getDriver().findElements(costListSelector);
         }
 
-        WebDriverWait wait = new WebDriverWait(getDriver(),10);
+        WebDriverWait wait = new WebDriverWait(getDriver(), 10);
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//td[@idx='7']")));
 
         //getWait().until(ExpectedConditions.numberOfElementsToBe(By.xpath("//td[@idx='7']"), totalCount));
@@ -474,6 +480,123 @@ public class USPS {
         System.out.println("Actual elements total: " + costList.size());
         System.out.println("The actual total: " + actualTotal);
         System.out.println("The expected total: " + expectedTotal);
+    }
+
+    @And("choose mail service Priority Mail")
+    public void chooseMailServicePriorityMail() {
+        //getExecutor().executeScript("arguments[0].click();", getDriver().findElement(By.xpath("(//label[contains(@for,'Service-Priority')])[1]")));
+        WebElement check = getDriver().findElement(By.xpath("//h4[contains(text(),'Mail Service')]/..//label[contains(text(), 'Priority Mail (')]"));
+        getWait(5).until(ExpectedConditions.visibilityOf(check));
+
+        getActions()
+        .moveToElement(check)
+        .perform();
+
+        check.click();
+
+    }
+
+    @Then("I verify {int} items found")
+    public void iVerifyItemsFound(int itemQty) {
+        String total = getDriver().findElement(By.xpath("//h2[@class='col-md-3 application-header align-self-center results-per-page']")).getText();
+        assertThat(total.contains("of " + itemQty + " Results"));
+    }
+
+    @When("I unselect Stamps checkbox")
+    public void iUnselectStampsCheckbox() {
+        getDriver().findElement(By.xpath("//label[contains(@for,'Category-Stamps')]")).click();
+        //div[@class='cartridge-viewport']//span[contains(text(),'Stamps')]
+    }
+
+    @And("select Vertical stamp Shape")
+    public void selectVerticalStampShape() {
+        getActions()
+        .moveToElement(getDriver().findElement(By.xpath("//h4[contains(text(),'Stamp Shape')]/..//label[contains(text(), 'Vertical (')]")))
+        .perform();
+
+        getDriver().findElement(By.xpath("//h4[contains(text(),'Stamp Shape')]/..//label[contains(text(), 'Vertical (')]")).click();
+    }
+
+    @And("I click Blue color")
+    public void iClickBlueColor() {
+        getActions()
+        .moveToElement(getDriver().findElement(By.xpath("//div[contains(@class, 'color')]//div[contains(@onclick, 'blue')]")))
+        .perform();
+
+        getDriver().findElement(By.xpath("//div[contains(@class, 'color')]//div[contains(@onclick, 'blue')]")).click();
+    }
+
+    @Then("I verify {string} and {string} filters")
+    public void iVerifyAndFilters(String filter1, String filter2) {
+        String option1 = getDriver().findElement(By.xpath("//div[@class='cartridge-viewport']//span[contains(text(),'Blue')]")).getText();
+        String option2 = getDriver().findElement(By.xpath("//span[contains(text(),'Vertical')]")).getText();
+
+        assertThat(option1).contains(filter1);
+        assertThat(option2).contains(filter2);
+    }
+
+    @And("I verify that items below {int} dollars exists")
+    public void iVerifyThatItemsBelowDollarsExists(double amount) {
+
+        String result = getDriver().findElement(By.xpath("//div[@class='result-page-wrapper']")).getText();
+
+        assertThat(result).contains("$" + (amount - 1));
+    }
+
+    @And("verify {string} service exists")
+    public void verifyServiceExists(String service) {
+        WebElement spinner = getDriver().findElement(By.xpath("//div[@class='white-spinner-container']"));
+        getWait().until(invisibilityOf(spinner));
+        WebDriverWait wait = new WebDriverWait(getDriver(), 10);
+
+        String servicesOption = getDriver().findElement(By.xpath("//select[@id='passportappointmentType']/option[text()='" + service + "']")).getText();
+        assertThat(servicesOption).isEqualTo(service);
+    }
+
+    @And("I reserve new PO box for {string}")
+    public void iReserveNewPOBoxFor(String postalCode) {
+
+        WebElement searchInput = getDriver().findElement(By.xpath("//input[@id='searchInput']"));
+        getWait().until(ExpectedConditions.visibilityOf(searchInput));
+        searchInput.click();
+        searchInput.sendKeys(postalCode);
+
+        WebElement search = getDriver().findElement(By.xpath("//span[@class='icon-search']"));
+        new Actions(getDriver()).moveToElement(search)
+                .click()
+                .perform();
+    }
+
+    @Then("I verify that {string} present")
+    public void iVerifyThatPresent(String address) throws InterruptedException {
+//        WebElement spinner = getDriver().findElement(By.xpath("//div[@id='modal-box_overlay-progress_2']"));
+//        getWait().until(invisibilityOf(spinner));
+//        WebDriverWait wait = new WebDriverWait(getDriver(), 10);
+
+        String location = getDriver().findElement(By.xpath("//div[@class='esri-view-surface']//div[2]//*[local-name()='svg']")).getText();
+        assertThat(location).contains(address);
+    }
+
+    @And("I verify that {string} PO Box is available in {string}")
+    public void iVerifyThatPOBoxIsAvailableIn(String size, String location) {
+
+        String item = getDriver().findElement(By.xpath("//label[@for='boxXL']")).getText();
+        String position = getDriver().findElement(By.xpath("//div[@id='boxLocation']/h2")).getText();
+        assertThat(location).isEqualTo(position);
+        assertThat(item).contains(size);
+    }
+
+    @And("I enter {string} into store search")
+    public void iEnterIntoStoreSearch(String search) {
+        getDriver().findElement(By.xpath("//input[@id='store-search']")).click();
+        getDriver().findElement(By.xpath("//input[@id='store-search']")).sendKeys(search);
+    }
+
+    @Then("I search and validate no products found")
+    public void iSearchAndValidateNoProductsFound() {
+        getDriver().findElement(By.xpath("//input[@id='store-search-btn']")).click();
+        String result = getDriver().findElement(By.xpath("//div[@class='no-results-found']//p")).getText();
+        assertThat(result).contains("search did not match any");
     }
 }
 

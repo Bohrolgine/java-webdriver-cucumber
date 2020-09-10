@@ -29,6 +29,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
+
 public class TestContext {
 
     private static WebDriver driver;
@@ -36,6 +37,10 @@ public class TestContext {
     public static WebDriver getDriver() {
         return driver;
     }
+
+
+
+
 
     /////////////////////////////////////////////////////////////////////////
 
@@ -57,11 +62,19 @@ public class TestContext {
         return new Actions(driver);
     }
 
+    public static WebDriverWait getWait() {
+        return getWait(5);
+    }
+
     public static WebDriverWait getWait(int timeout) {
         return new WebDriverWait(driver, timeout);
     }
 
     /////////////////////////////////////////////////////////////////////////
+
+
+
+
 
 
     public static void initialize() {
