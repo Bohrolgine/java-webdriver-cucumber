@@ -7,16 +7,15 @@ import cucumber.api.java.en.When;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Dimension;
 import org.openqa.selenium.Keys;
+import pages.*;
 
 import java.util.*;
 import java.util.concurrent.TimeUnit;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static support.TestContext.getDriver;
 //import static org.graalvm.compiler.debug.TTY.printf;
 //import static org.graalvm.compiler.hotspot.stubs.StubUtil.printf;
-import static support.TestContext.getDriver;
-
-
 //import org.apache.logging.log4j.core.util.JsonUtils;
 //import org.apache.logging.log4j.core.util.Source;
 //import org.w3c.dom.ls.LSOutput;
@@ -835,7 +834,7 @@ public class JavaStepDefs {
         while (start <= end) {
             int mid = (start + end) / 2;
             if (arr[mid] == search) {
-                System.out.println("Element " + search +  " is found under index " + mid + " (from 0)");
+                System.out.println("Element " + search + " is found under index " + mid + " (from 0)");
                 flag = true;
                 break;
             }
@@ -843,17 +842,65 @@ public class JavaStepDefs {
                 start = mid + 1;
             }
             if (arr[mid] > search) {
-                end = mid -1;
+                end = mid - 1;
             }
         }
-    if(flag == false) {
-        System.out.println( "Element not found");
+        if (!flag) {      // simplified from if(flag == false) {
+            System.out.println("Element not found");
+        }
     }
 
+    @Given("I work with classes")
+    public void iWorkWithClasses() {
+        //  Cat
+        //  Dog
+        // java -> new package (use it for page objects); pages -> new -> java class -> class
+        // Code -> Generate -> Getter & Setter
+        Animal cat = new Cat("Tom");
+        System.out.println(cat.getName());
+        //cat.setName("Tom");
+        cat.walk();
+        cat.sleep();
+        cat.speak();
+        cat.eat("a fish");
+
+        Animal dog = new Dog("Pickle");
+        System.out.println(dog.getName());
+        dog.walk();
+        dog.sleep();
+        dog.speak();
+        dog.eat("a bone");
+
+        Animal pig = new Pig("Insane");
+        System.out.println(pig.getName());
+        pig.walk();
+        pig.sleep();
+        pig.speak();
+        pig.eat("& looking for wine");
+
+        Animal goose = new Goose("Rupert");
+        System.out.println(goose.getName());
+        goose.walk();
+        goose.sleep();
+        goose.speak();
+        goose.eat("grass");
+
+        List<Animal> list = new ArrayList<Animal>();
+        list.add(cat);
+        list.add(dog);
+        list.add(pig);
+        list.add(goose);
+        printAnimalNames(list);
     }
 
+    public void printAnimalNames(List<Animal> animals) {
+        System.out.println("print names method: ");
+        for (Animal animal : animals) {
+            System.out.println(animal.getName());
+            animal.speak();
+        }
+    }
 }
-
 
 
 //Timeouts:

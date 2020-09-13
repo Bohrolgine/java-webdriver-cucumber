@@ -86,3 +86,7 @@ Feature: ScenarioOutline cases
   @java5   #Write a function that counts number of each character in a string - ok
   Scenario: Write a function that counts number of each character in a string
     Given Write a function that counts number of each character in a string
+
+  @java6   #Review Java classes we created and add two more classes. Add methods to them. Execute them
+  Scenario: Classes
+    Given I work with classes

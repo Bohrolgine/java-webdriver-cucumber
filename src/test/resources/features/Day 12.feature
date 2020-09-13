@@ -58,6 +58,10 @@ Feature: Interview Coding Tasks
     Then I verify that "Los Altos — Post Office™" present
     And I verify that "Size 5-XL" PO Box is available in "Los Altos — Post Office™"
 
+  @usps8
+  Scenario: Classes
+    Given I work with classes
+
 
 
 

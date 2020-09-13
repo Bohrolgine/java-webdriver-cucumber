@@ -2,49 +2,53 @@ package definitions;
 
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.And;
-import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
+import org.assertj.core.data.Percentage;
+import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.Select;
+import java.util.concurrent.TimeUnit;
+import org.openqa.selenium.support.ui.WebDriverWait;
+import org.openqa.selenium.By;
+import org.openqa.selenium.Keys;
+import org.openqa.selenium.WebElement;
+import java.util.List;
+import static org.openqa.selenium.support.ui.ExpectedConditions.*;
+import static org.assertj.core.api.Assertions.assertThat;
+import static support.TestContext.getDriver;
+import static support.TestContext.*;
+////////////////////////////////////////////////////////////////////////
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import cucumber.api.java.en.Given;
 import gherkin.ast.ScenarioOutline;
 import org.assertj.core.api.Assert;
-import org.assertj.core.data.Percentage;
 import org.openqa.selenium.*;
-import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.interactions.SourceType;
 import org.openqa.selenium.logging.LogEntries;
 import org.openqa.selenium.logging.LogEntry;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.Select;
 import java.time.Instant;
 import java.util.*;
-import java.util.concurrent.TimeUnit;
-import static org.assertj.core.api.Assertions.assertThat;
-import static support.TestContext.getDriver;
 import org.apache.logging.log4j.core.util.JsonUtils;
 import org.apache.logging.log4j.core.util.Source;
-import org.openqa.selenium.support.ui.WebDriverWait;
 import org.w3c.dom.ls.LSOutput;
 import static support.TestContext.*;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import org.assertj.core.data.Percentage;
-import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
-import org.openqa.selenium.Keys;
-import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import java.util.Iterator;
-import java.util.List;
 import java.util.concurrent.TimeUnit;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.openqa.selenium.support.ui.ExpectedConditions.numberOfElementsToBe;
 import static support.TestContext.getDriver;
-import static org.openqa.selenium.support.ui.ExpectedConditions.*;
-import org.openqa.selenium.support.ui.ExpectedConditions;
+////////////////////////////////////////////////////////////////////////
+
 
 public class USPS {
     @Given("I navigate to {string} page")
