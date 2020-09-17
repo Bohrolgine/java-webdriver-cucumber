@@ -50,7 +50,7 @@ Feature: Interview Coding Tasks
     And I click "Schedule an Appointment" button
     And verify "Passport Renewal" service exists
 
-  @usps7
+  @usps7 # - ok
   Scenario: PO Box
     Given I go to "usps" page
     When I go to "PO Boxes" under "Track & Manage"
@@ -58,7 +58,7 @@ Feature: Interview Coding Tasks
     Then I verify that "Los Altos — Post Office™" present
     And I verify that "Size 5-XL" PO Box is available in "Los Altos — Post Office™"
 
-  @usps8
+  @usps8 # - ok
   Scenario: Classes
     Given I work with classes
 

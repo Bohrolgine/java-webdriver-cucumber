@@ -856,6 +856,10 @@ public class JavaStepDefs {
         //  Dog
         // java -> new package (use it for page objects); pages -> new -> java class -> class
         // Code -> Generate -> Getter & Setter
+        //Abstraction
+        //Encapsulation
+        //Inheritance
+        //Polymorphism
         Animal cat = new Cat("Tom");
         System.out.println(cat.getName());
         //cat.setName("Tom");
@@ -870,6 +874,7 @@ public class JavaStepDefs {
         dog.sleep();
         dog.speak();
         dog.eat("a bone");
+        ((Dog)dog).fetch("a stick");
 
         Animal pig = new Pig("Insane");
         System.out.println(pig.getName());
@@ -885,6 +890,10 @@ public class JavaStepDefs {
         goose.speak();
         goose.eat("grass");
 
+        Animal canary = new Canary("Joey");
+        System.out.println(canary.getName());
+        canary.speak();
+
         List<Animal> list = new ArrayList<Animal>();
         list.add(cat);
         list.add(dog);
@@ -899,6 +908,49 @@ public class JavaStepDefs {
             System.out.println(animal.getName());
             animal.speak();
         }
+    }
+
+    @Given("Write a function that finds fibonacci sequence")
+    public void writeAFunctionThatFindsFibonacciSequence() {
+
+        int k = 0, a = 1, b = 1, n = 1000;
+
+        System.out.print("fibonacci sequence up to " + n + ": 1, 1, ");
+
+        while (k <= n) {
+            k = a + b;
+            if (k >= n)
+                break;
+
+            System.out.print(k + ", ");
+            a = b;
+            b = k;
+        }
+    }
+
+    @Given("Write a function that verifies if number is prime")
+    public void writeAFunctionThatVerifiesIfNumberIsPrime() {
+
+        int num = 19;
+        int count = 0;
+
+        if (num > 1) {
+            for (int i = 1; i <= num; i++) {
+                if (num % i == 0)
+                    count++;
+            }
+            if (count == 2) {
+                System.out.println(num + " is a prime number.");
+            }
+            else {
+                System.out.println(num + " is not a prime number.");
+            }
+
+        }
+        else {
+            System.out.println(num + " is not a prime number.");
+        }
+
     }
 }
 

@@ -11,5 +11,8 @@ public class Dog extends Animal{
         System.out.println(classAndName() + " is barking");
     }
 
+    public void fetch(String what) {
+        System.out.println(classAndName() + " is looking for " + what);
+    }
 
 }
