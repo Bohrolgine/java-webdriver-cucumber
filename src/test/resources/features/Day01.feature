@@ -44,8 +44,8 @@ Feature: Responsive UI Validation
     #Then element with xpath "//h1[@id='itemTitle']" should contain text "Face Mask"
 
 
-  @java
-  Feature: Java steps
+  #@java
+  #Feature: Java steps
 
   @java1
   Scenario: Number Exercises
@@ -73,18 +73,13 @@ Feature: Responsive UI Validation
 
     When I go to "google" page
     Then I print page details in console
-
-
-
-
-
     And I print if number 35 is positive
-                                                          #And I print if number 35 is positive via switch
+    #And I print if number 35 is positive via switch
     And I print 5 th day of the week
 
 
-  @predefined
-  Feature: Responsive UI Validation
+  #@predefined
+  #Feature: Responsive UI Validation
 
   @predefined1 @UI-1
   Scenario: Input field Validation - Form
@@ -117,8 +112,8 @@ Feature: Responsive UI Validation
     Then element with xpath "//b[@name='name']" should contain text "Name Secondname"
 
 
-  @predefined
-  Feature: Responsive UI Validation
+  #@predefined
+  #Feature: Responsive UI Validation
 
   @predefined1 @UI-1
   Scenario: Input field Validation - Name
@@ -132,8 +127,8 @@ Feature: Responsive UI Validation
     Then element with xpath "//input[@id='name']" should have attribute "value" as "Firstname Middlename Lastname"
 
 
-  @predefined
-  Feature: Responsive UI Validation
+  #@predefined
+  #Feature: Responsive UI Validation
 
   @predefined1 @UI-1
   Scenario: Input field Validation - Password
@@ -145,8 +140,8 @@ Feature: Responsive UI Validation
     Then element with xpath "//input[@id='confirmPassword']" should be enabled
 
 
-  @predefined
-  Feature: Responsive UI Validation
+  #@predefined
+  #Feature: Responsive UI Validation
 
   @predefined1 @UI-1
   Scenario: Input field Validation - Email pattern "name@host"
@@ -170,8 +165,8 @@ Feature: Responsive UI Validation
     Then element with xpath "//label[@id='email-error']" should not be displayed
 
 
-  @predefined
-  Feature: Responsive UI Validation
+  #@predefined
+  #Feature: Responsive UI Validation
 
   @predefined1 @UI-1
   Scenario: Input field Validation - Username
@@ -183,8 +178,8 @@ Feature: Responsive UI Validation
     Then element with xpath "//label[@id='username-error']" should not be displayed
 
 
-  @PR
-  Feature: Responsive UI Validation
+  #@PR
+  #Feature: Responsive UI Validation
 
   @predefined1
   Scenario: Responsive UI Validation for mobile layout
@@ -204,8 +199,8 @@ Feature: Responsive UI Validation
     And I maximize window
 
 
-  @predefined
-  Feature: Smoke steps for diff browsers
+  #@predefined
+  #Feature: Smoke steps for diff browsers
 
   @predefined1
   Scenario: Predefined steps for Google

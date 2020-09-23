@@ -14,7 +14,7 @@ Feature: Interview Coding Tasks
     Given Write a function that verifies if number is prime
 
 #QUOTE OOP DAY 13 - QUOTE.FEATURE
-  @quote
+  @quotetemp
   #Feature: Quote OOP
   Scenario: Required fields for quote OOP
     Given I open "quote" page

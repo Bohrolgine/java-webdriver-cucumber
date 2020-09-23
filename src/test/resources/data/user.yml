@@ -4,3 +4,5 @@ password: "123456789"
 firstName: John
 middleName: Johnson
 lastName: Doe
+contactPersonName: Richard Roe
+contactPersonPhone: "1234567890"
