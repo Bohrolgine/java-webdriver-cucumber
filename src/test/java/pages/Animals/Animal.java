@@ -1,4 +1,4 @@
-package pages;
+package pages.Animals;
 
 public abstract class Animal {
 

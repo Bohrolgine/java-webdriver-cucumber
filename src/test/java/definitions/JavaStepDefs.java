@@ -7,7 +7,7 @@ import cucumber.api.java.en.When;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Dimension;
 import org.openqa.selenium.Keys;
-import pages.*;
+import pages.Animals.*;
 
 import java.util.*;
 import java.util.concurrent.TimeUnit;

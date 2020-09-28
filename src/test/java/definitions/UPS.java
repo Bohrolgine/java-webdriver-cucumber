@@ -11,6 +11,9 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import static org.assertj.core.api.Assertions.assertThat;
 import static support.TestContext.getDriver;
 import org.openqa.selenium.interactions.Actions;
+import pages.UPS.UpsHome;
+import pages.USPS.UspsHome;
+
 import java.util.concurrent.TimeUnit;
 
 public class UPS {
@@ -210,4 +213,10 @@ public class UPS {
         Thread.sleep(500);
 
     }
+
+    //////////////////////////////////////////////////////////////////////////////////////////////////////////////////// OOP section
+
+    UpsHome upsHome = new UpsHome();
+
+
 }

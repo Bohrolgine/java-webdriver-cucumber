@@ -82,3 +82,26 @@ Feature: Quote OOP
     Then I verify "name" field value "John Doe"
     When I fill out name field with first name "John", middle name "Richard", last name "Doe"
     Then I verify "name" field value "John Richard Doe"
+
+  @upsOOP01
+  Scenario: UPS end to end first OOP
+    Given I open "ups" page
+    #And I open Shipping menu
+    #And I go to Create a Shipment
+    #When I fill out origin shipment fields
+    #And I submit the shipment form
+    #Then I verify origin shipment fields submitted
+    #And I cancel the shipment form
+    #Then I verify shipment form is reset
+
+  @uspsOOP01 #-ok
+  Scenario Outline: Validate ZIP code OOP
+    Given I open "usps" page
+    When I go to lookup ZIP page by address oop
+    And I fill out "<street>" street, "<city>" city, "<state>" state oop
+    Then I validate "<zip>" zip code in the result oop
+    Examples:
+      | street              | city      | state | zip   |
+      | 4970 El Camino Real | Los Altos | CA    | 94022 |
+      | 11 Wall st          | New York  | NY    | 10005 |
+      | 111 S Michigan Ave  | Chicago   | IL    | 60603 |

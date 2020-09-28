@@ -19,34 +19,9 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static support.TestContext.getDriver;
 import static support.TestContext.*;
 ////////////////////////////////////////////////////////////////////////
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import cucumber.api.java.en.Given;
-import gherkin.ast.ScenarioOutline;
-import org.assertj.core.api.Assert;
-import org.openqa.selenium.*;
-import org.openqa.selenium.interactions.SourceType;
-import org.openqa.selenium.logging.LogEntries;
-import org.openqa.selenium.logging.LogEntry;
-import java.time.Instant;
-import java.util.*;
-import org.apache.logging.log4j.core.util.JsonUtils;
-import org.apache.logging.log4j.core.util.Source;
-import org.w3c.dom.ls.LSOutput;
-import static support.TestContext.*;
-import cucumber.api.java.en.And;
-import cucumber.api.java.en.Then;
-import cucumber.api.java.en.When;
-import org.assertj.core.data.Percentage;
-import org.openqa.selenium.JavascriptExecutor;
-import org.openqa.selenium.interactions.Actions;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.Select;
-import org.openqa.selenium.support.ui.WebDriverWait;
-import java.util.Iterator;
-import java.util.concurrent.TimeUnit;
+import pages.USPS.*;
+
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.openqa.selenium.support.ui.ExpectedConditions.numberOfElementsToBe;
-import static support.TestContext.getDriver;
 ////////////////////////////////////////////////////////////////////////
 
 
@@ -602,5 +577,40 @@ public class USPS {
         String result = getDriver().findElement(By.xpath("//div[@class='no-results-found']//p")).getText();
         assertThat(result).contains("search did not match any");
     }
+
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////// OOP section
+
+    UspsHome                uspsHome               =   new UspsHome             ();
+    UspsLookupByZip         uspsLookupByZip        =   new UspsLookupByZip      ();
+    UspsHeader              uspsHeader             =   new UspsHeader           ();
+    UspsByAddressForm       uspsByAddressForm      =   new UspsByAddressForm    ();
+    UspsByAddressResult     uspsByAddressResult    =   new UspsByAddressResult  ();
+//  ClassName               method                 =   new Constructor          ();
+
+    @When("I go to lookup ZIP page by address oop")
+    public void iGoToLookupZIPPageByAddressOop() {
+        uspsHeader.goToLookupByZip();
+        uspsLookupByZip.clickFindByAddress();
+    }
+
+    @And("I fill out {string} street, {string} city, {string} state oop")
+    public void iFillOutStreetCityStateOop(String street, String city, String state) {
+        uspsByAddressForm.fillStreet(street);
+        uspsByAddressForm.fillCity(city);
+        uspsByAddressForm.selectState(state);
+        uspsByAddressForm.clickFind();
+    }
+
+    @Then("I validate {string} zip code in the result oop")
+    public void iValidateZipCodeInTheResultOop(String zip) {
+
+        String result = uspsByAddressResult.getSearchResult();
+        assertThat(result).contains(zip);
+
+        boolean areAllItemsContainZip = uspsByAddressResult.areAllResultsContain(zip);
+        assertThat(uspsByAddressResult.areAllResultsContain(zip)).isTrue();
+    }
 }
+
 

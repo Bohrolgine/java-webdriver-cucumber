@@ -1,14 +1,22 @@
-package pages;
+package pages.QUOTE;
 
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-//import org.openqa.selenium.support.PageFactory;
-//import static support.TestContext.getDriver;
+import org.openqa.selenium.support.PageFactory;
+import pages.Page;
 
-public class QuoteResult extends Page{
+import static support.TestContext.getDriver;
+
+public class QuoteResult extends Page {
 
 //    public QuoteResult() {
 //        PageFactory.initElements(getDriver(), this);
+//    }
+
+//    //constructor
+//    public QuoteResult() {
+//        PageFactory.initElements(getDriver(), this);
+//
 //    }
 
     @FindBy(id = "quotePageResult")

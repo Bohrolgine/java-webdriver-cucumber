@@ -1,6 +1,6 @@
-package pages;
+package pages.Animals;
 
-public class Canary extends Animal{
+public class Canary extends Animal {
 
     public Canary(String name) {
         this.name = name;

@@ -1,11 +1,10 @@
 package definitions;
 
 import cucumber.api.java.en.And;
-import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
-import pages.QuoteForm;
-import pages.QuoteResult;
+import pages.QUOTE.QuoteForm;
+import pages.QUOTE.QuoteResult;
 
 import java.util.Map;
 
@@ -17,20 +16,22 @@ public class QuoteStepDefs {
     QuoteForm form = new QuoteForm();
     QuoteResult result = new QuoteResult();
 
-    @Given("I open {string} page")
-    public void iOpenPage(String page) {
-
-        switch (page) {
-            case "quote":
-
-                form.open();
-
-                break;
-
-            default:
-                throw new RuntimeException("Unknown page: " + page);
-        }
-    }
+//    @Given("I open {string} page")
+//    public void iOpenPage(String page) {
+//
+//        switch (page) {
+//            case "quote":
+//                form.open();
+//                break;
+//
+//            //case "ups":
+//                //upsPg.open();
+//                //break;
+//
+//            default:
+//                throw new RuntimeException("Unknown page: " + page);
+//        }
+//    }
 
     @When("I fill out required fields for {string} oop")
     public void iFillOutRequiredFieldsForOop(String role) {
