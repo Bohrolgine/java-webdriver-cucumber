@@ -586,6 +586,8 @@ public class USPS {
     UspsHeader              uspsHeader             =   new UspsHeader           ();
     UspsByAddressForm       uspsByAddressForm      =   new UspsByAddressForm    ();
     UspsByAddressResult     uspsByAddressResult    =   new UspsByAddressResult  ();
+    UspsCalculatePrice      uspsCalculatePrice     =   new UspsCalculatePrice   ();
+    UspsCalculator          uspsCalculator         =   new UspsCalculator       ();
 //  ClassName               method                 =   new Constructor          ();
 
     @When("I go to lookup ZIP page by address oop")
@@ -610,6 +612,30 @@ public class USPS {
 
         boolean areAllItemsContainZip = uspsByAddressResult.areAllResultsContain(zip);
         assertThat(uspsByAddressResult.areAllResultsContain(zip)).isTrue();
+    }
+
+    @When("I go to Calculate Price Page oop")
+    public void iGoToCalculatePricePageOop() {
+        uspsHeader.goToCalculatePrice();
+    }
+
+    @And("I select {string} with {string} shape oop")
+    public void iSelectWithShapeOop(String country, String shape) {
+        uspsCalculatePrice.selectCountry(country);
+        uspsCalculatePrice.selectShape(shape);
+    }
+
+    @And("I define {string} quantity oop")
+    public void iDefineQuantityOop(String count) {
+        uspsCalculator.fillQuantity(count);
+    }
+
+    @Then("I calculate the price and validate cost is {string} oop")
+    public void iCalculateThePriceAndValidateCostIsOop(String cost) {
+        uspsCalculator.submit();
+        //uspsCalculator.getTotal();
+        assertThat(uspsCalculator.getTotal()).isEqualTo(cost);
+
     }
 }
 

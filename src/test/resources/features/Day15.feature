@@ -1,4 +1,7 @@
-@uspsOOP02
+@quoteOOP
+Feature: Quote OOP2
+
+@uspsOOP02 # - ok
 Scenario: Calculate price
 Given I open "usps" page
 When I go to Calculate Price Page oop
