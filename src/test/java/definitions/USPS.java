@@ -598,10 +598,13 @@ public class USPS {
 
     @And("I fill out {string} street, {string} city, {string} state oop")
     public void iFillOutStreetCityStateOop(String street, String city, String state) {
-        uspsByAddressForm.fillStreet(street);
-        uspsByAddressForm.fillCity(city);
-        uspsByAddressForm.selectState(state);
-        uspsByAddressForm.clickFind();
+        //String resultString =
+                uspsByAddressForm
+                .fillStreet (street)
+                .fillCity   (city)
+                .selectState(state)
+                .clickFind  ()
+                .getSearchResult();
     }
 
     @Then("I validate {string} zip code in the result oop")
