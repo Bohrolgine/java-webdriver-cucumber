@@ -1,3 +1,6 @@
+@careers
+  Feature: Careers scenarios
+
 @careersOOP01
 Scenario: Recruiter removes position
 Given I open "careers" page

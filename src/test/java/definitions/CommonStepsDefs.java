@@ -1,6 +1,7 @@
 package definitions;
 
 import cucumber.api.java.en.Given;
+import pages.CAREERS.CareersHome;
 import pages.QUOTE.QuoteForm;
 import pages.UPS.UpsHome;
 import pages.USPS.UspsHome;
@@ -23,6 +24,10 @@ public class CommonStepsDefs {
 
             case "ups":
                 new UpsHome().open();
+                break;
+
+            case "careers":
+                new CareersHome().open();
                 break;
 
             default:

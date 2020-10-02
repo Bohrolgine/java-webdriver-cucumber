@@ -3,8 +3,14 @@ package pages;
 import org.openqa.selenium.By;
 import org.openqa.selenium.ElementClickInterceptedException;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.logging.LogEntries;
+import org.openqa.selenium.logging.LogEntry;
+import org.openqa.selenium.logging.LogType;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
+
+import java.util.List;
+import java.util.logging.Level;
 
 import static support.TestContext.*;
 import static support.TestContext.getWait;
@@ -32,6 +38,12 @@ public class Page {
 
         getWait().until(ExpectedConditions.visibilityOf(element));
     }
+
+    protected void waitForDisappear(WebElement element) {
+
+        getWait().until(ExpectedConditions.invisibilityOf(element));
+    }
+
 
     protected void waitForClickable(WebElement element) {
         getWait().until(ExpectedConditions.elementToBeClickable(element));
@@ -67,6 +79,25 @@ public class Page {
 
     protected WebElement getByXpath(String xpath) {
         return getDriver().findElement(By.xpath(xpath));
+    }
+
+    protected List<WebElement> getAllByXpath(String xpath) {
+        return getDriver().findElements(By.xpath(xpath));
+    }
+
+    public void refresh() {
+    getDriver().navigate().refresh();
+    }
+
+    public boolean areErrorsPresent() {
+        LogEntries entries = getDriver().manage().logs().get(LogType.BROWSER);
+        for (LogEntry entry : entries) {
+            if (entry.getLevel().equals(Level.SEVERE)) {
+                System.out.println(entry);
+                return true;
+            }
+        }
+        return false;
     }
 
 }

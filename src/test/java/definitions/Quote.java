@@ -11,7 +11,7 @@ import java.util.Map;
 import static org.assertj.core.api.Assertions.assertThat;
 import static support.TestContext.*;
 
-public class QuoteStepDefs {
+public class Quote {
 
     QuoteForm form = new QuoteForm();
     QuoteResult result = new QuoteResult();
