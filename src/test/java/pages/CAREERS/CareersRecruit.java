@@ -12,7 +12,26 @@ import static support.TestContext.getWait;
 
 public class CareersRecruit extends CareersHeader{
 
-// dynamic element
+
+    public CareersRecruit() {
+        url = "https://skryabin-careers.herokuapp.com/recruit";
+    }
+
+    @Override
+    public void refresh() {
+        new CareersHome().open();
+        open();
+        try {
+            Thread.sleep(500); }
+                catch (InterruptedException e) {
+                    throw new RuntimeException(e);
+                }
+            }
+
+
+
+
+    // dynamic element
 
     private WebElement positionCard(String title) {
         return getByXpath("//h4[text()='" + title + "']/ancestor::div[contains(@class,'card-body')]");

@@ -1,5 +1,6 @@
 package support;
 
+import cucumber.api.java.it.Ma;
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
@@ -18,14 +19,15 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.yaml.snakeyaml.Yaml;
-
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -33,12 +35,56 @@ import java.util.Map;
 public class TestContext {
 
     private static WebDriver driver;
+    private static String timestamp;
+    private static Map<String, Object> testData = new HashMap<>();
+
+    public static Map<String, Object> getTestDataMap(String key) {
+        return (Map<String, Object>) testData.get(key);
+    }
+
+    public  static Integer getTestDataInteger(String key) {
+        return (Integer) testData.get(key);
+    }
+
+    public  static String getTestDataString(String key) {
+        return (String) testData.get(key);
+    }
+
+
+    public static void setTestData(String key, Object value) {
+        testData.put(key, value);
+    }
+
+    public static String getTimestamp() {
+        return timestamp;
+    }
+
+    public static void setTimestamp() {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("+yyyy-MM-dd-h-mm-sss");
+        timestamp = dateFormat.format(new Date());
+    }
+
 
     public static WebDriver getDriver() {
         return driver;
     }
 
 
+
+    public static Map<String, String> getPosition(String title) {
+        Map<String, String>  position = getData(title);
+        String timestampedTitle = position.get("title");
+        position.put("title", timestampedTitle + getTimestamp());
+        return position;
+    }
+
+    public static Map<String, String> getCandidate(String role) {
+        Map<String, String>  candidate = getData(role);
+        String timestampedEmail = candidate.get("email");
+        String[] emailComp = timestampedEmail.split("@");
+        candidate.put("email", emailComp[0] + getTimestamp() + "@" + emailComp[1]);
+        return candidate;
+    }
 
 
 
