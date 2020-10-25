@@ -1,0 +1,6 @@
+Oct 22, 2020 4:21:22 PM cucumber.runtime.java.ObjectFactoryLoader loadSingleObjectFactory
+WARNING: Use deprecated reflections to load ObjectFactory.
+INFO 16:21:24:034 wdm.WebDriverManager detectDriverVersionFromBrowser:615 Using chromedriver 86.0.4240.22 (since Google Chrome 86 is installed in your machine)
+INFO 16:21:24:051 wdm.WebDriverManager exportDriver:1113 Exporting webdriver.chrome.driver as C:\Users\brinz\.m2\repository\webdriver\chromedriver\win32\86.0.4240.22\chromedriver.exe
+Starting ChromeDriver 86.0.4240.22 (398b0743353ff36fb1b82468f63a3a93b4e2e89e-refs/branch-heads/4240@{#378}) on port 20103
+Only local connections are allowed.

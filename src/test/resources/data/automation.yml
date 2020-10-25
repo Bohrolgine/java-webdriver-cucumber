@@ -3,5 +3,5 @@ description: "Long Texts (also referred as SapScript texts or text objects) are 
 address:     12345 ABCDEF Sctr
 city:        Rednecksville
 state:       AB
-zip:         10023
+zip:         "10023"
 dateOpen:    2020/10/05
