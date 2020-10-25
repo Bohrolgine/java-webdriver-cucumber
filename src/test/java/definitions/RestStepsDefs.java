@@ -6,9 +6,11 @@ import cucumber.api.java.en.When;
 import io.restassured.response.ExtractableResponse;
 import io.restassured.response.Response;
 import org.apache.commons.codec.binary.Hex;
+import org.apache.commons.io.FileUtils;
 import support.RestClient;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
@@ -107,11 +109,29 @@ public class RestStepsDefs {
     }
 
     @Then("I verify via REST that {string} resume has been added")
-    public void iVerifyViaRESTThatResumeHasBeenAdded(String fileType) {
-        ExtractableResponse<Response> responce = new RestClient().getResume(getTestDataMap("newCandidate").get("id"));
-        String disposition = responce.header("content-disposition");
+    public void iVerifyViaRESTThatResumeHasBeenAdded(String fileType) throws IOException {
+        ExtractableResponse<Response> response = new RestClient().getResume(getTestDataMap("newCandidate").get("id"));
+        String disposition = response.header("content-disposition");
         assertThat(disposition).isEqualTo("attachment; filename=resume." + fileType);
-        String signature = Hex.encodeHexString(responce.asByteArray());
-        System.out.println(signature);
+
+        byte[] byteArray = response.asByteArray();
+        String signature = Hex.encodeHexString(byteArray);
+        switch (fileType) {
+            case "pdf":
+                assertThat(signature).startsWith("255044462d");
+            break;
+            case "doc":
+            case "xls":
+            case "ppt":
+                assertThat(signature).startsWith("D0CF11E0A1B11AE1");
+                break;
+        }
+        saveFile("returnedResume", fileType, byteArray);
+
+        File actualFile = getFile("resume", fileType);
+        File expectedFile = getFile("returnedResume", fileType);
+
+        boolean areEqual = FileUtils.contentEquals(actualFile, expectedFile);
+        assertThat(areEqual).isTrue();
     }
 }
