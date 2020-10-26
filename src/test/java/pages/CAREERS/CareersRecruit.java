@@ -5,12 +5,14 @@ import definitions.Careers;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
+import support.Loggable;
+import support.Screenshot;
 
 import java.util.List;
 
 import static support.TestContext.getWait;
 
-public class CareersRecruit extends CareersHeader{
+public class CareersRecruit extends CareersHeader implements Loggable, Screenshot {
 
 
     public CareersRecruit() {
@@ -47,6 +49,8 @@ public class CareersRecruit extends CareersHeader{
 
 
     public boolean isPositionVisible(String title) {
+        getLogger().info("Taking screenshot");
+        takeScreenshot();
 //        List<WebElement> cards = allPositionCards(title);
 //        if (cards.isEmpty()) {
 //            return false;
@@ -57,6 +61,7 @@ public class CareersRecruit extends CareersHeader{
         try {
             return positionCard(title).isDisplayed();
         } catch (NoSuchElementException e) {
+            getLogger().info("Position " + title + " is not visible!");
             return false;
         }
     }

@@ -6,13 +6,14 @@ import cucumber.api.java.en.When;
 import pages.CAREERS.CareersHome;
 import pages.CAREERS.CareersLogin;
 import pages.CAREERS.CareersRecruit;
+import support.Loggable;
 
 import java.util.Map;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static support.TestContext.getData;
 
-public class Careers {
+public class Careers implements Loggable {
     @And("I login as {string}")
     public void iLoginAs(String role) throws InterruptedException {
         Map<String, String> user = getData(role);
